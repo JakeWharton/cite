@@ -1,0 +1,13 @@
+[versions]
+kotlin = "1.8.0"
+auto-service="1.0.1"
+
+[libraries]
+kotlin-compiler = { module = "org.jetbrains.kotlin:kotlin-compiler", version.ref = "kotlin" }
+kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+
+buildConfigPlugin = "com.github.gmazzo:gradle-buildconfig-plugin:3.1.0"
+
+autoService-compiler = { module = "com.google.auto.service:auto-service", version.ref = "auto-service" }
+autoService-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "auto-service" }

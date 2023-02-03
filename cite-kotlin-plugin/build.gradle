@@ -1,0 +1,12 @@
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'org.jetbrains.kotlin.kapt'
+
+kotlin {
+	explicitApi()
+}
+
+dependencies {
+	compileOnly libs.kotlin.compiler
+	compileOnly libs.autoService.annotations
+	kapt libs.autoService.compiler
+}

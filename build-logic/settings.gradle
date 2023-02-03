@@ -1,0 +1,12 @@
+rootProject.name = 'build-logic'
+
+include(':cite-gradle-plugin')
+project(':cite-gradle-plugin').projectDir = new File('../cite-gradle-plugin')
+
+dependencyResolutionManagement {
+	versionCatalogs {
+		libs {
+			from(files('../gradle/libs.versions.toml'))
+		}
+	}
+}

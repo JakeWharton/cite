@@ -1,0 +1,32 @@
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'java-gradle-plugin'
+apply plugin: 'com.github.gmazzo.buildconfig'
+
+gradlePlugin {
+	plugins {
+		cite {
+			id = 'com.jakewharton.cite'
+			displayName = "Cite"
+			description = "Cite compiler plugin"
+			implementationClass = "com.jakewharton.cite.plugin.gradle.CitePlugin"
+		}
+	}
+}
+
+buildConfig {
+	useKotlinOutput {
+		internalVisibility = true
+		topLevelConstants = true
+	}
+
+	packageName('com.jakewharton.cite.plugin.gradle')
+	buildConfigField("String", "CiteVersion", "\"$version\"")
+}
+
+kotlin {
+	explicitApi()
+}
+
+dependencies {
+	compileOnly libs.kotlin.gradlePlugin
+}

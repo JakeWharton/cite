@@ -1,0 +1,25 @@
+buildscript {
+	dependencies {
+		classpath libs.kotlin.gradlePlugin
+		classpath libs.buildConfigPlugin
+		classpath 'com.jakewharton.cite:cite-gradle-plugin'
+	}
+	repositories {
+		mavenCentral()
+		gradlePluginPortal()
+	}
+}
+
+allprojects {
+	repositories {
+		mavenCentral()
+	}
+
+	configurations.configureEach {
+		resolutionStrategy.dependencySubstitution {
+			substitute(module("com.jakewharton.cite:cite-kotlin-plugin"))
+				.using(project(":cite-kotlin-plugin"))
+				.because("In-repo sample usage")
+		}
+	}
+}

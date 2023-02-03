@@ -1,0 +1,18 @@
+buildscript {
+	dependencies {
+		classpath libs.kotlin.gradlePlugin
+		classpath libs.buildConfigPlugin
+	}
+	repositories {
+		mavenCentral()
+		gradlePluginPortal()
+	}
+}
+
+allprojects {
+	version = '0-internal'
+
+	repositories {
+		mavenCentral()
+	}
+}

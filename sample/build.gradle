@@ -1,0 +1,7 @@
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'com.jakewharton.cite'
+apply plugin: 'application'
+
+application {
+	mainClass = 'com.example.cite.Main'
+}
