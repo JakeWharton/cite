@@ -39,4 +39,12 @@ kotlin {
 	watchosSimulatorArm64()
 	watchosX64()
 	watchosX86()
+
+	sourceSets {
+		commonTest {
+			dependencies {
+				implementation libs.kotlin.test
+			}
+		}
+	}
 }
