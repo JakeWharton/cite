@@ -6,51 +6,68 @@ For example, given:
 ```kotlin
 object Greeter {
   fun sayHi() {
-    println("Hello from:")
-    println("  File: $__FILE__")
-    println("  Type: $__TYPE__")
-    println("  Member: $__MEMBER__")
-    println("  Line: $__LINE__")
+    println("Hello: $__FILE__, $__TYPE__, $__MEMBER_, $__LINE__")
   }
 }
 ```
 When invoked, this will output:
 ```
-Hello from:
-  File: main.kt
-  Type: Greeter
-  Member: sayHi
-  Line: 20
+Hello: main.kt, Greeter, sayHi, 16
 ```
 The Java bytecode shows values were resolved at compile time:
 ```
  9: getstatic     #19      // Field java/lang/System.out:Ljava/io/PrintStream;
-11: ldc           #27      // String   File: main.kt
+11: ldc           #27      // String Hello: main.kt, Greeter, sayHi, 16
 14: invokevirtual #25      // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
-17: getstatic     #19      // Field java/lang/System.out:Ljava/io/PrintStream;
-19: ldc           #29      // String   Type: Greeter
-22: invokevirtual #25      // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
-25: getstatic     #19      // Field java/lang/System.out:Ljava/io/PrintStream;
-27: ldc           #31      // String   Member: sayHi
-30: invokevirtual #25      // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
-33: getstatic     #19      // Field java/lang/System.out:Ljava/io/PrintStream;
-35: ldc           #33      // String   Line: 28
-38: invokevirtual #25      // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
 ```
+The values are constants, so they can be folded with other constants.
+
 Every Kotlin target is supported. Here's JS:
 ```js
 Greeter.prototype.h = function () {
-  println('Hello from:');
-  println('  File: main.kt');
-  println('  Type: Greeter');
-  println('  Member: sayHi');
-  println('  Line: 20');
+  println('Hello: main.kt, Greeter, sayHi, 16');
 };
 ```
 
+
+## API
+
+Four properties are provided:
+
+| Property     | Type     | Description                                                      | Example   |
+|--------------|----------|------------------------------------------------------------------|-----------|
+| `__FILE__`   | `String` | Filename of the source file.                                     | "main.kt" |
+| `__TYPE__`   | `String` | Name of the nearest enclosing class, object, interface, or enum. | "Greeter" |
+| `__MEMBER__` | `String` | Name of the nearest enclosing function or property body.         | "sayHi"   |
+| `__LINE__`   | `Int`    | One-based line number of this property reference.                | 20        |
+
+Use of a property in a location without an associated enclosing type is an error.
+For example, using `__TYPE__` in a top-level function will fail to compile.
+
+
 ## Usage
 
-Coming soon!
+Snapshots of the development version are available in Sonatype's snapshots repository.
+
+```groovy
+buildscript {
+  repositories {
+    mavenCentral()
+    maven {
+      url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+  }
+  dependencies {
+    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.1.0-SNAPSHOT'
+  }
+}
+
+apply plugin: 'org.jetbrains.kotlin.multiplatform' // Or .jvm
+apply plugin: 'com.jakewharton.cite'
+```
+
+The runtime dependency will be added as an `implementation` dependency automatically.
+Never add the runtime dependency yourself, as use without the plugin will not work.
 
 
 # License
