@@ -8,6 +8,8 @@ kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ve
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 
 buildConfigPlugin = "com.github.gmazzo:gradle-buildconfig-plugin:3.1.0"
+gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.24.0"
+dokkaPlugin = "org.jetbrains.dokka:dokka-gradle-plugin:1.7.20"
 
 autoService-compiler = { module = "com.google.auto.service:auto-service", version.ref = "auto-service" }
 autoService-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "auto-service" }

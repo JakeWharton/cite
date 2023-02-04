@@ -2,6 +2,10 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'java-gradle-plugin'
 apply plugin: 'com.github.gmazzo.buildconfig'
 
+if (rootProject.name == 'cite') {
+	apply plugin: 'com.vanniktech.maven.publish'
+}
+
 gradlePlugin {
 	plugins {
 		cite {

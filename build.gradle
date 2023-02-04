@@ -2,6 +2,8 @@ buildscript {
 	dependencies {
 		classpath libs.kotlin.gradlePlugin
 		classpath libs.buildConfigPlugin
+		classpath libs.gradleMavenPublishPlugin
+		classpath libs.dokkaPlugin
 		classpath 'com.jakewharton.cite:cite-gradle-plugin'
 	}
 	repositories {
