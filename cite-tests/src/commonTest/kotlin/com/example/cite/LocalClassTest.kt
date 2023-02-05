@@ -6,6 +6,13 @@ import kotlin.test.assertEquals
 class LocalClassTest {
 	private val accessor = funWithClass()
 
+	@Test fun initializer() {
+		assertEquals("localClass.kt", accessor.instanceInitializerFile)
+		assertEquals("LocalClass", accessor.instanceInitializerType)
+		// TODO assertEquals("<init>", accessor.instanceInitializerMember)
+		assertEquals(50, accessor.instanceInitializerLine)
+	}
+
 	@Test fun `fun`() {
 		assertEquals("localClass.kt", accessor.funFile())
 		assertEquals("LocalClass", accessor.funType())

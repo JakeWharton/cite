@@ -6,6 +6,13 @@ import kotlin.test.assertEquals
 class ClassTest {
 	private val instance = AClass()
 
+	@Test fun initializer() {
+		assertEquals("class.kt", instance.instanceInitializerFile)
+		assertEquals("AClass", instance.instanceInitializerType)
+		// TODO assertEquals("<init>", instance.instanceInitializerMember)
+		assertEquals(48, instance.instanceInitializerLine)
+	}
+
 	@Test fun `fun`() {
 		assertEquals("class.kt", instance.funFile())
 		assertEquals("AClass", instance.funType())

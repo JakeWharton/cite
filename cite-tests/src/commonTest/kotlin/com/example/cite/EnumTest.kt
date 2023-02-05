@@ -4,17 +4,25 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class EnumTest {
+	@Test fun normalInitializer() {
+		assertEquals("enum.kt", AnEnum.Normal.instanceInitializerFile)
+		// TODO Should be just "AnEnum".
+		assertEquals("", AnEnum.Normal.instanceInitializerType)
+		// TODO assertEquals("<clinit>", AnEnum.Normal.instanceInitializerMember)
+		assertEquals(100, AnEnum.Normal.instanceInitializerLine)
+	}
+
 	@Test fun normalFun() {
 		assertEquals("enum.kt", AnEnum.Normal.funFile())
 		// TODO assertEquals("AnEnum", AnEnum.Normal.funType())
 		assertEquals("funMember", AnEnum.Normal.funMember())
-		assertEquals(48, AnEnum.Normal.funLine())
+		assertEquals(59, AnEnum.Normal.funLine())
 	}
 
 	@Test fun normalPropertyInitializer() {
 		assertEquals("enum.kt", AnEnum.Normal.propertyInitializerFile)
 		// TODO assertEquals("AnEnum", AnEnum.Normal.propertyInitializerType)
-		assertEquals(52, AnEnum.Normal.propertyInitializerLine)
+		assertEquals(63, AnEnum.Normal.propertyInitializerLine)
 	}
 
 	@Test fun normalPropertyGetter() {
@@ -22,7 +30,7 @@ class EnumTest {
 		// TODO assertEquals("AnEnum", AnEnum.Normal.propertyGetterType)
 		// TODO Should be just "propertyGetterMember".
 		assertEquals("<get-propertyGetterMember>", AnEnum.Normal.propertyGetterMember)
-		assertEquals(57, AnEnum.Normal.propertyGetterLine)
+		assertEquals(68, AnEnum.Normal.propertyGetterLine)
 	}
 
 	@Test fun normalPropertySetter() {
@@ -36,7 +44,15 @@ class EnumTest {
 		// TODO assertEquals("AnEnum", AnEnum.Normal.propertySetterType)
 		// TODO Should be just "propertySetterMember".
 		assertEquals("<set-propertySetterMember>", AnEnum.Normal.propertySetterMember)
-		assertEquals(74, AnEnum.Normal.propertySetterLine)
+		assertEquals(85, AnEnum.Normal.propertySetterLine)
+	}
+
+	@Test fun subtypeInitializer() {
+		assertEquals("enum.kt", AnEnum.Normal.instanceInitializerFile)
+		// TODO Should be just "AnEnum".
+		assertEquals("", AnEnum.Normal.instanceInitializerType)
+		// TODO assertEquals("<clinit>", AnEnum.Normal.instanceInitializerMember)
+		assertEquals(100, AnEnum.Normal.instanceInitializerLine)
 	}
 
 	@Test fun subtypeFun() {

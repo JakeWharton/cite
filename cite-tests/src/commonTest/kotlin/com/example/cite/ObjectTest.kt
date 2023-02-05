@@ -4,6 +4,13 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ObjectTest {
+	@Test fun initializer() {
+		assertEquals("object.kt", AnObject.instanceInitializerFile)
+		assertEquals("AnObject", AnObject.instanceInitializerType)
+		// TODO assertEquals("<clinit>", AnObject.instanceInitializerMember)
+		assertEquals(48, AnObject.instanceInitializerLine)
+	}
+
 	@Test fun `fun`() {
 		assertEquals("object.kt", AnObject.funFile())
 		assertEquals("AnObject", AnObject.funType())

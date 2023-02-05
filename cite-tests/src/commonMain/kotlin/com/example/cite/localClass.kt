@@ -38,6 +38,17 @@ fun funWithClass(): LocalClassAccessor {
 			set(_) {
 				field = __LINE__
 			}
+
+		val instanceInitializerFile: String
+		val instanceInitializerType: String
+		// TODO val instanceInitializerMember: String
+		val instanceInitializerLine: Int
+		init {
+			instanceInitializerFile = __FILE__
+			instanceInitializerType = __TYPE__
+			// TODO instanceInitializerMember = __MEMBER__
+			instanceInitializerLine = __LINE__
+		}
 	}
 
 	return object : LocalClassAccessor {
@@ -70,6 +81,10 @@ fun funWithClass(): LocalClassAccessor {
 		override var propertySetterLine: Int
 			get() = instance.propertySetterLine
 			set(value) { instance.propertySetterLine = value }
+
+		override val instanceInitializerFile get() = instance.instanceInitializerFile
+		override val instanceInitializerType get() = instance.instanceInitializerType
+		override val instanceInitializerLine get() = instance.instanceInitializerLine
 	}
 }
 
@@ -93,4 +108,8 @@ interface LocalClassAccessor {
 	var propertySetterType: String
 	var propertySetterMember: String
 	var propertySetterLine: Int
+
+	val instanceInitializerFile: String
+	val instanceInitializerType: String
+	val instanceInitializerLine: Int
 }

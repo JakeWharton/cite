@@ -39,6 +39,17 @@ enum class AnEnum {
 			set(_) {
 				field = __LINE__
 			}
+
+		override val instanceInitializerFile: String
+		override val instanceInitializerType: String
+		// TODO override val instanceInitializerMember: String
+		override val instanceInitializerLine: Int
+		init {
+			instanceInitializerFile = __FILE__
+			instanceInitializerType = __TYPE__
+			// TODO instanceInitializerMember = __MEMBER__
+			instanceInitializerLine = __LINE__
+		}
 	},
 	;
 
@@ -73,4 +84,19 @@ enum class AnEnum {
 		set(_) {
 			field = __LINE__
 		}
+
+	private val baseInitializerFile: String
+	open val instanceInitializerFile: String get() = baseInitializerFile
+	private val baseInitializerType: String
+	open val instanceInitializerType: String get() = baseInitializerType
+	// TODO private val baseInitializerMember: String
+	// TODO open val instanceInitializerMember: String get() = baseInitializerMember
+	private val baseInitializerLine: Int
+	open val instanceInitializerLine: Int get() = baseInitializerLine
+	init {
+		baseInitializerFile = __FILE__
+		baseInitializerType = "" // TODO __TYPE__
+		// TODO baseInitializerMember = __MEMBER__
+		baseInitializerLine = __LINE__
+	}
 }

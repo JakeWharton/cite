@@ -36,4 +36,15 @@ class AClass {
 		set(_) {
 			field = __LINE__
 		}
+
+	val instanceInitializerFile: String
+	val instanceInitializerType: String
+	// TODO val instanceInitializerMember: String
+	val instanceInitializerLine: Int
+	init {
+		instanceInitializerFile = __FILE__
+		instanceInitializerType = __TYPE__
+		// TODO instanceInitializerMember = __MEMBER__
+		instanceInitializerLine = __LINE__
+	}
 }
