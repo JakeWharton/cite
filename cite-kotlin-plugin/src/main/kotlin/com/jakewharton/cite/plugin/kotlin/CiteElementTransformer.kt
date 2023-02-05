@@ -46,7 +46,7 @@ internal class CiteElementTransformer(
 	}
 
 	override fun visitClassNew(declaration: IrClass): IrStatement {
-		visitingType = declaration.name.identifier
+		visitingType = declaration.name.asString()
 		val irStatement = super.visitClassNew(declaration)
 		visitingType = null
 		return irStatement

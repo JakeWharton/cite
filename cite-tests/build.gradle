@@ -1,0 +1,23 @@
+apply plugin: 'org.jetbrains.kotlin.multiplatform'
+apply plugin: 'com.jakewharton.cite'
+
+kotlin {
+	js().nodejs()
+	jvm()
+
+	linuxArm64()
+	linuxX64()
+	macosArm64()
+	macosX64()
+	mingwX64()
+
+	wasm32()
+
+	sourceSets {
+		commonTest {
+			dependencies {
+				implementation libs.kotlin.test
+			}
+		}
+	}
+}

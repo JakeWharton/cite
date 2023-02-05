@@ -3,6 +3,7 @@ rootProject.name = 'cite'
 include ':cite-gradle-plugin'
 include ':cite-kotlin-plugin'
 include ':cite-runtime'
+include ':cite-tests'
 
 include ':sample'
 
