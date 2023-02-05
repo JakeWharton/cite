@@ -13,6 +13,8 @@ buildscript {
 }
 
 allprojects {
+	version = property("VERSION_NAME") as String
+
 	repositories {
 		mavenCentral()
 	}
@@ -22,6 +24,17 @@ allprojects {
 			substitute(module("com.jakewharton.cite:cite-kotlin-plugin"))
 				.using(project(":cite-kotlin-plugin"))
 				.because("In-repo sample usage")
+		}
+	}
+
+	plugins.withId('maven-publish') {
+		publishing {
+			repositories {
+				maven {
+					name = "TestMaven"
+					url = file("${rootProject.buildDir}/testMaven").toURI().toString()
+				}
+			}
 		}
 	}
 }

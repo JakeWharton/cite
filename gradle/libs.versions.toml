@@ -13,3 +13,7 @@ dokkaPlugin = "org.jetbrains.dokka:dokka-gradle-plugin:1.7.20"
 
 autoService-compiler = { module = "com.google.auto.service:auto-service", version.ref = "auto-service" }
 autoService-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "auto-service" }
+
+junit = "junit:junit:4.13.2"
+strikt = "io.strikt:strikt-core:0.34.0"
+asm-util = "org.ow2.asm:asm-util:9.4"

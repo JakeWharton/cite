@@ -46,7 +46,7 @@ public class CitePlugin : KotlinCompilerPluginSupportPlugin {
 		return if (isInternalBuild) {
 			project(":cite-runtime")
 		} else {
-			"app.cash.redwood:cite-runtime:$CiteVersion"
+			"com.jakewharton.cite:cite-runtime:$CiteVersion"
 		}
 	}
 

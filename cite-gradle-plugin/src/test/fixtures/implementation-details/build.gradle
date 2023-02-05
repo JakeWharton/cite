@@ -1,0 +1,45 @@
+buildscript {
+	dependencies {
+		classpath libs.kotlin.gradlePlugin
+		classpath "com.jakewharton.cite:cite-gradle-plugin:$citeVersion"
+	}
+	repositories {
+		maven {
+			url "file://${projectDir.absolutePath}/../../../../../build/testMaven"
+		}
+		mavenCentral()
+	}
+}
+
+repositories {
+	maven {
+		url "file://${projectDir.absolutePath}/../../../../../build/testMaven"
+	}
+	mavenCentral()
+}
+
+apply plugin: 'org.jetbrains.kotlin.multiplatform'
+apply plugin: 'com.jakewharton.cite'
+
+kotlin {
+	js {
+		nodejs()
+		binaries.executable()
+	}
+
+	jvm()
+
+	linuxX64 {
+		binaries.executable {
+			entryPoint = 'com.example.cite.main'
+			freeCompilerArgs += "-Xsave-llvm-ir-after=VerifyBitcode"
+			freeCompilerArgs += "-Xtemporary-files-dir=${new File(buildDir, "dump").absolutePath}"
+		}
+	}
+
+	wasm32 {
+		binaries.executable {
+			entryPoint = 'com.example.cite.main'
+		}
+	}
+}
