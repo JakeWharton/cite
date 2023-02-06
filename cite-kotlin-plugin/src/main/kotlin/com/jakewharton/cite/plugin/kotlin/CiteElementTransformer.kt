@@ -100,7 +100,7 @@ internal class CiteElementTransformer(
 					if (visitingMember != null) {
 						return expression.swapConstString(visitingMember)
 					} else {
-						expression.reportError("No member detected! Report bug at https://github.com/JakeWharton/cite/issues/new")
+						expression.reportError("__MEMBER__ may only be used within a member")
 					}
 				}
 				lineName -> {
