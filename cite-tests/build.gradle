@@ -3,21 +3,36 @@ apply plugin: 'com.jakewharton.cite'
 
 kotlin {
 	js().nodejs()
+	// TODO js("jsK2").nodejs()
+
 	jvm()
+	jvm("jvmK2")
 
 	linuxArm64()
+	// TODO linuxArm64("linuxArm64K2")
 	linuxX64()
+	// TODO linuxX64("linuxX64K2")
 	macosArm64()
+	// TODO macosArm64("macosArm64K2")
 	macosX64()
+	// TODO macosX64("macosX64K2")
 	mingwX64()
+	// TODO mingwX64("mingwX64K2")
 
 	wasm32()
+	// TODO wasm32("wasm32K2")
 
 	sourceSets {
 		commonTest {
 			dependencies {
 				implementation libs.kotlin.test
 			}
+		}
+	}
+
+	targets.configureEach { target ->
+		if (target.name.contains("K2")) {
+			target.compilations.main.compilerOptions.options.freeCompilerArgs.add("-Xuse-k2")
 		}
 	}
 }
