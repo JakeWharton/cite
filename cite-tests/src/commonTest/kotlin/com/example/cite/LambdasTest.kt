@@ -7,16 +7,14 @@ import kotlin.test.assertEquals
 class LambdasTest {
 	@Test fun lambda() {
 		assertEquals("lambdas.kt", lambdaFile().invoke())
-		// TODO should be "lambdaMember".
-		assertEquals("<anonymous>", lambdaMember().invoke())
+		assertEquals("lambdaMember", lambdaMember().invoke())
 		assertEquals(10, lambdaLine().invoke())
 	}
 
 	@Test fun lambdaInType() {
 		assertEquals("lambdas.kt", LambdaType.lambdaFile().invoke())
 		assertEquals("LambdaType", LambdaType.lambdaType().invoke())
-		// TODO should be "lambdaMember".
-		assertEquals("<anonymous>", LambdaType.lambdaMember().invoke())
+		assertEquals("lambdaMember", LambdaType.lambdaMember().invoke())
 		assertEquals(21, LambdaType.lambdaLine().invoke())
 	}
 

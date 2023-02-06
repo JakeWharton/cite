@@ -20,6 +20,7 @@ import org.jetbrains.kotlin.ir.util.isPropertyAccessor
 import org.jetbrains.kotlin.ir.util.kotlinFqName
 import org.jetbrains.kotlin.konan.file.File
 import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.name.SpecialNames
 
 internal class CiteElementTransformer(
 	private val messageCollector: MessageCollector,
@@ -52,13 +53,18 @@ internal class CiteElementTransformer(
 	}
 
 	override fun visitFunctionNew(declaration: IrFunction): IrStatement {
-		visitingMember += if (declaration.isPropertyAccessor) {
-			(declaration as IrSimpleFunction).correspondingPropertySymbol!!.owner.name.asString()
-		} else {
-			declaration.name.asString()
+		val anonymous = declaration.name == SpecialNames.ANONYMOUS
+		if (!anonymous) {
+			visitingMember += if (declaration.isPropertyAccessor) {
+				(declaration as IrSimpleFunction).correspondingPropertySymbol!!.owner.name.asString()
+			} else {
+				declaration.name.asString()
+			}
 		}
 		val irStatement = super.visitFunctionNew(declaration)
-		visitingMember.removeLast()
+		if (!anonymous) {
+			visitingMember.removeLast()
+		}
 		return irStatement
 	}
 
