@@ -54,16 +54,16 @@ enum class AnEnum {
 	;
 
 	open fun funFile() = __FILE__
-	open fun funType() = "" // TODO __TYPE__
+	open fun funType() = __TYPE__
 	open fun funMember() = __MEMBER__
 	open fun funLine() = __LINE__
 
 	open val propertyInitializerFile = __FILE__
-	open val propertyInitializerType = "" // TODO __TYPE__
+	open val propertyInitializerType = __TYPE__
 	open val propertyInitializerLine = __LINE__
 
 	open val propertyGetterFile get() = __FILE__
-	open val propertyGetterType get() = "" // TODO __TYPE__
+	open val propertyGetterType get() = __TYPE__
 	open val propertyGetterMember get() = __MEMBER__
 	open val propertyGetterLine get() = __LINE__
 
@@ -74,7 +74,7 @@ enum class AnEnum {
 		}
 	open var propertySetterType: String = ""
 		set(_) {
-			// TODO field = __TYPE__
+			field = __TYPE__
 		}
 	open var propertySetterMember: String = ""
 		set(_) {
@@ -95,7 +95,7 @@ enum class AnEnum {
 	open val instanceInitializerLine: Int get() = baseInitializerLine
 	init {
 		baseInitializerFile = __FILE__
-		baseInitializerType = "" // TODO __TYPE__
+		baseInitializerType = __TYPE__
 		// TODO baseInitializerMember = __MEMBER__
 		baseInitializerLine = __LINE__
 	}

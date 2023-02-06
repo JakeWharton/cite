@@ -6,13 +6,17 @@ import org.jetbrains.kotlin.cli.common.messages.CompilerMessageSeverity.ERROR
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
 import org.jetbrains.kotlin.ir.IrFileEntry
 import org.jetbrains.kotlin.ir.IrStatement
+import org.jetbrains.kotlin.ir.declarations.IrAnonymousInitializer
 import org.jetbrains.kotlin.ir.declarations.IrClass
+import org.jetbrains.kotlin.ir.declarations.IrDeclaration
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.declarations.IrFunction
+import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.types.getClass
+import org.jetbrains.kotlin.ir.util.isEnumClass
 import org.jetbrains.kotlin.ir.util.isEnumEntry
 import org.jetbrains.kotlin.ir.util.isPropertyAccessor
 import org.jetbrains.kotlin.ir.util.kotlinFqName
@@ -51,9 +55,37 @@ internal class CiteElementTransformer(
 
 	override fun visitFunctionNew(declaration: IrFunction): IrStatement {
 		visitingMember = declaration.name.asString()
-		val irStatement = super.visitFunctionNew(declaration)
+		val irStatement = withEnumTypeWorkaround(declaration) {
+			super.visitFunctionNew(declaration)
+		}
 		visitingMember = null
 		return irStatement
+	}
+
+	override fun visitPropertyNew(declaration: IrProperty): IrStatement {
+		return withEnumTypeWorkaround(declaration) {
+			super.visitPropertyNew(declaration)
+		}
+	}
+
+	override fun visitAnonymousInitializerNew(declaration: IrAnonymousInitializer): IrStatement {
+		return withEnumTypeWorkaround(declaration) {
+			super.visitAnonymousInitializerNew(declaration)
+		}
+	}
+
+	private fun <T> withEnumTypeWorkaround(declaration: IrDeclaration, body: () -> T): T {
+		// Enum functions and properties are visited after the class is complete.
+		// So if we don't have a type yet and our parent is an Enum get it now.
+		val inEnum = visitingType == null && (declaration.parent as? IrClass)?.isEnumClass == true
+		if (inEnum) {
+			visitingType = (declaration.parent as IrClass).name.asString()
+		}
+		val result = body()
+		if (inEnum) {
+			visitingType = null
+		}
+		return result
 	}
 
 	override fun visitCall(expression: IrCall): IrExpression {
