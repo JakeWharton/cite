@@ -57,23 +57,20 @@ class EnumTest {
 
 	@Test fun subtypeFun() {
 		assertEquals("enum.kt", AnEnum.Subtype.funFile())
-		// TODO Should be just "AnEnum".
-		assertEquals("Subtype", AnEnum.Subtype.funType())
+		assertEquals("AnEnum", AnEnum.Subtype.funType())
 		assertEquals("funMember", AnEnum.Subtype.funMember())
 		assertEquals(14, AnEnum.Subtype.funLine())
 	}
 
 	@Test fun subtypePropertyInitializer() {
 		assertEquals("enum.kt", AnEnum.Subtype.propertyInitializerFile)
-		// TODO Should be just "AnEnum".
-		assertEquals("Subtype", AnEnum.Subtype.propertyInitializerType)
+		assertEquals("AnEnum", AnEnum.Subtype.propertyInitializerType)
 		assertEquals(18, AnEnum.Subtype.propertyInitializerLine)
 	}
 
 	@Test fun subtypePropertyGetter() {
 		assertEquals("enum.kt", AnEnum.Subtype.propertyGetterFile)
-		// TODO Should be just "AnEnum".
-		assertEquals("Subtype", AnEnum.Subtype.propertyGetterType)
+		assertEquals("AnEnum", AnEnum.Subtype.propertyGetterType)
 		// TODO Should be just "propertyGetterMember".
 		assertEquals("<get-propertyGetterMember>", AnEnum.Subtype.propertyGetterMember)
 		assertEquals(23, AnEnum.Subtype.propertyGetterLine)
@@ -87,8 +84,7 @@ class EnumTest {
 		AnEnum.Subtype.propertySetterLine = -1
 
 		assertEquals("enum.kt", AnEnum.Subtype.propertySetterFile)
-		// TODO Should be just "AnEnum".
-		assertEquals("Subtype", AnEnum.Subtype.propertySetterType)
+		assertEquals("AnEnum", AnEnum.Subtype.propertySetterType)
 		// TODO Should be just "propertySetterMember".
 		assertEquals("<set-propertySetterMember>", AnEnum.Subtype.propertySetterMember)
 		assertEquals(40, AnEnum.Subtype.propertySetterLine)

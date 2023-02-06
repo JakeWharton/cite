@@ -1,30 +1,23 @@
 package com.jakewharton.cite.plugin.kotlin
 
-import kotlin.math.exp
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
-import org.jetbrains.kotlin.backend.common.serialization.proto.FileEntry
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageLocation
-import org.jetbrains.kotlin.cli.common.messages.CompilerMessageSeverity
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageSeverity.ERROR
-import org.jetbrains.kotlin.cli.common.messages.CompilerMessageSourceLocation
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
 import org.jetbrains.kotlin.ir.IrFileEntry
 import org.jetbrains.kotlin.ir.IrStatement
-import org.jetbrains.kotlin.ir.declarations.IrAnonymousInitializer
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.declarations.IrFunction
-import org.jetbrains.kotlin.ir.declarations.IrPackageFragment
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
+import org.jetbrains.kotlin.ir.types.getClass
+import org.jetbrains.kotlin.ir.util.isEnumEntry
 import org.jetbrains.kotlin.ir.util.isPropertyAccessor
 import org.jetbrains.kotlin.ir.util.kotlinFqName
-import org.jetbrains.kotlin.ir.util.nameForIrSerialization
 import org.jetbrains.kotlin.konan.file.File
 import org.jetbrains.kotlin.name.FqName
-import org.jetbrains.kotlin.name.Name
-import org.jetbrains.kotlin.name.SpecialNames
 
 internal class CiteElementTransformer(
 	private val messageCollector: MessageCollector,
@@ -46,7 +39,11 @@ internal class CiteElementTransformer(
 	}
 
 	override fun visitClassNew(declaration: IrClass): IrStatement {
-		visitingType = declaration.name.asString()
+		visitingType = if (declaration.isEnumEntry) {
+			declaration.superTypes.first().getClass()!!.name.asString()
+		} else {
+			declaration.name.asString()
+		}
 		val irStatement = super.visitClassNew(declaration)
 		visitingType = null
 		return irStatement
