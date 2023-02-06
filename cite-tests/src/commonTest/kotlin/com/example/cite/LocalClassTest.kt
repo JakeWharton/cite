@@ -30,8 +30,7 @@ class LocalClassTest {
 	@Test fun propertyGetter() {
 		assertEquals("localClass.kt", accessor.propertyGetterFile)
 		assertEquals("LocalClass", accessor.propertyGetterType)
-		// TODO Should be just "propertyGetterMember".
-		assertEquals("<get-propertyGetterMember>", accessor.propertyGetterMember)
+		assertEquals("propertyGetterMember", accessor.propertyGetterMember)
 		assertEquals(23, accessor.propertyGetterLine)
 	}
 
@@ -44,8 +43,7 @@ class LocalClassTest {
 
 		assertEquals("localClass.kt", accessor.propertySetterFile)
 		assertEquals("LocalClass", accessor.propertySetterType)
-		// TODO Should be just "propertySetterMember".
-		assertEquals("<set-propertySetterMember>", accessor.propertySetterMember)
+		assertEquals("propertySetterMember", accessor.propertySetterMember)
 		assertEquals(39, accessor.propertySetterLine)
 	}
 }

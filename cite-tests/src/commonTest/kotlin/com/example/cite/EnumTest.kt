@@ -27,8 +27,7 @@ class EnumTest {
 	@Test fun normalPropertyGetter() {
 		assertEquals("enum.kt", AnEnum.Normal.propertyGetterFile)
 		assertEquals("AnEnum", AnEnum.Normal.propertyGetterType)
-		// TODO Should be just "propertyGetterMember".
-		assertEquals("<get-propertyGetterMember>", AnEnum.Normal.propertyGetterMember)
+		assertEquals("propertyGetterMember", AnEnum.Normal.propertyGetterMember)
 		assertEquals(68, AnEnum.Normal.propertyGetterLine)
 	}
 
@@ -41,8 +40,7 @@ class EnumTest {
 
 		assertEquals("enum.kt", AnEnum.Normal.propertySetterFile)
 		assertEquals("AnEnum", AnEnum.Normal.propertySetterType)
-		// TODO Should be just "propertySetterMember".
-		assertEquals("<set-propertySetterMember>", AnEnum.Normal.propertySetterMember)
+		assertEquals("propertySetterMember", AnEnum.Normal.propertySetterMember)
 		assertEquals(85, AnEnum.Normal.propertySetterLine)
 	}
 
@@ -69,8 +67,7 @@ class EnumTest {
 	@Test fun subtypePropertyGetter() {
 		assertEquals("enum.kt", AnEnum.Subtype.propertyGetterFile)
 		assertEquals("AnEnum", AnEnum.Subtype.propertyGetterType)
-		// TODO Should be just "propertyGetterMember".
-		assertEquals("<get-propertyGetterMember>", AnEnum.Subtype.propertyGetterMember)
+		assertEquals("propertyGetterMember", AnEnum.Subtype.propertyGetterMember)
 		assertEquals(23, AnEnum.Subtype.propertyGetterLine)
 	}
 
@@ -83,8 +80,7 @@ class EnumTest {
 
 		assertEquals("enum.kt", AnEnum.Subtype.propertySetterFile)
 		assertEquals("AnEnum", AnEnum.Subtype.propertySetterType)
-		// TODO Should be just "propertySetterMember".
-		assertEquals("<set-propertySetterMember>", AnEnum.Subtype.propertySetterMember)
+		assertEquals("propertySetterMember", AnEnum.Subtype.propertySetterMember)
 		assertEquals(40, AnEnum.Subtype.propertySetterLine)
 	}
 }

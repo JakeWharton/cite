@@ -29,8 +29,7 @@ class ClassTest {
 	@Test fun propertyGetter() {
 		assertEquals("class.kt", instance.propertyGetterFile)
 		assertEquals("AClass", instance.propertyGetterType)
-		// TODO Should be just "propertyGetterMember".
-		assertEquals("<get-propertyGetterMember>", instance.propertyGetterMember)
+		assertEquals("propertyGetterMember", instance.propertyGetterMember)
 		assertEquals(21, instance.propertyGetterLine)
 	}
 
@@ -43,8 +42,7 @@ class ClassTest {
 
 		assertEquals("class.kt", instance.propertySetterFile)
 		assertEquals("AClass", instance.propertySetterType)
-		// TODO Should be just "propertySetterMember".
-		assertEquals("<set-propertySetterMember>", instance.propertySetterMember)
+		assertEquals("propertySetterMember", instance.propertySetterMember)
 		assertEquals(37, instance.propertySetterLine)
 	}
 }

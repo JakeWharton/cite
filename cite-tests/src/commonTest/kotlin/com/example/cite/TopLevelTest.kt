@@ -17,8 +17,7 @@ class TopLevelTest {
 
 	@Test fun propertyGetter() {
 		assertEquals("topLevel.kt", topLevelPropertyGetterFile)
-		// TODO Should be just "topLevelPropertyGetterMember".
-		assertEquals("<get-topLevelPropertyGetterMember>", topLevelPropertyGetterMember)
+		assertEquals("topLevelPropertyGetterMember", topLevelPropertyGetterMember)
 		assertEquals(16, topLevelPropertyGetterLine)
 	}
 
@@ -29,8 +28,7 @@ class TopLevelTest {
 		topLevelPropertySetterLine = -1
 
 		assertEquals("topLevel.kt", topLevelPropertySetterFile)
-		// TODO Should be just "topLevelPropertySetterMember".
-		assertEquals("<set-topLevelPropertySetterMember>", topLevelPropertySetterMember)
+		assertEquals("topLevelPropertySetterMember", topLevelPropertySetterMember)
 		assertEquals(28, topLevelPropertySetterLine)
 	}
 }

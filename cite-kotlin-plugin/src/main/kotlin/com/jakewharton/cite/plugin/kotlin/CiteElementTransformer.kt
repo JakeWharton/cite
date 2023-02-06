@@ -10,6 +10,7 @@ import org.jetbrains.kotlin.ir.declarations.IrAnonymousInitializer
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.declarations.IrFunction
+import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
@@ -51,7 +52,11 @@ internal class CiteElementTransformer(
 	}
 
 	override fun visitFunctionNew(declaration: IrFunction): IrStatement {
-		visitingMember += declaration.name.asString()
+		visitingMember += if (declaration.isPropertyAccessor) {
+			(declaration as IrSimpleFunction).correspondingPropertySymbol!!.owner.name.asString()
+		} else {
+			declaration.name.asString()
+		}
 		val irStatement = super.visitFunctionNew(declaration)
 		visitingMember.removeLast()
 		return irStatement
