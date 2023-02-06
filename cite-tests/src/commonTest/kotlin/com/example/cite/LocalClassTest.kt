@@ -9,7 +9,7 @@ class LocalClassTest {
 	@Test fun initializer() {
 		assertEquals("localClass.kt", accessor.instanceInitializerFile)
 		assertEquals("LocalClass", accessor.instanceInitializerType)
-		// TODO assertEquals("<init>", accessor.instanceInitializerMember)
+		assertEquals("<init>", accessor.instanceInitializerMember)
 		assertEquals(50, accessor.instanceInitializerLine)
 	}
 
@@ -23,7 +23,7 @@ class LocalClassTest {
 	@Test fun propertyInitializer() {
 		assertEquals("localClass.kt", accessor.propertyInitializerFile)
 		assertEquals("LocalClass", accessor.propertyInitializerType)
-		// TODO assertEquals("funWithClass", accessor.propertyInitializerMember)
+		assertEquals("funWithClass", accessor.propertyInitializerMember)
 		assertEquals(18, accessor.propertyInitializerLine)
 	}
 

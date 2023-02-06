@@ -7,7 +7,7 @@ class ObjectTest {
 	@Test fun initializer() {
 		assertEquals("object.kt", AnObject.instanceInitializerFile)
 		assertEquals("AnObject", AnObject.instanceInitializerType)
-		// TODO assertEquals("<clinit>", AnObject.instanceInitializerMember)
+		assertEquals("<init>", AnObject.instanceInitializerMember)
 		assertEquals(48, AnObject.instanceInitializerLine)
 	}
 

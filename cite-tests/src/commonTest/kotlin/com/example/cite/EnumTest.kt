@@ -7,7 +7,7 @@ class EnumTest {
 	@Test fun normalInitializer() {
 		assertEquals("enum.kt", AnEnum.Normal.instanceInitializerFile)
 		assertEquals("AnEnum", AnEnum.Normal.instanceInitializerType)
-		// TODO assertEquals("<clinit>", AnEnum.Normal.instanceInitializerMember)
+		assertEquals("<init>", AnEnum.Normal.instanceInitializerMember)
 		assertEquals(100, AnEnum.Normal.instanceInitializerLine)
 	}
 
@@ -49,7 +49,7 @@ class EnumTest {
 	@Test fun subtypeInitializer() {
 		assertEquals("enum.kt", AnEnum.Normal.instanceInitializerFile)
 		assertEquals("AnEnum", AnEnum.Normal.instanceInitializerType)
-		// TODO assertEquals("<clinit>", AnEnum.Normal.instanceInitializerMember)
+		assertEquals("<init>", AnEnum.Normal.instanceInitializerMember)
 		assertEquals(100, AnEnum.Normal.instanceInitializerLine)
 	}
 

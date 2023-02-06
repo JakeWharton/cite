@@ -9,7 +9,7 @@ class ClassTest {
 	@Test fun initializer() {
 		assertEquals("class.kt", instance.instanceInitializerFile)
 		assertEquals("AClass", instance.instanceInitializerType)
-		// TODO assertEquals("<init>", instance.instanceInitializerMember)
+		assertEquals("<init>", instance.instanceInitializerMember)
 		assertEquals(48, instance.instanceInitializerLine)
 	}
 

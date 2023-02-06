@@ -14,7 +14,7 @@ fun funWithClass(): LocalClassAccessor {
 
 		val propertyInitializerFile = __FILE__
 		val propertyInitializerType = __TYPE__
-		// TODO val propertyInitializerMember = __MEMBER__
+		val propertyInitializerMember = __MEMBER__
 		val propertyInitializerLine = __LINE__
 
 		val propertyGetterFile get() = __FILE__
@@ -41,12 +41,12 @@ fun funWithClass(): LocalClassAccessor {
 
 		val instanceInitializerFile: String
 		val instanceInitializerType: String
-		// TODO val instanceInitializerMember: String
+		val instanceInitializerMember: String
 		val instanceInitializerLine: Int
 		init {
 			instanceInitializerFile = __FILE__
 			instanceInitializerType = __TYPE__
-			// TODO instanceInitializerMember = __MEMBER__
+			instanceInitializerMember = __MEMBER__
 			instanceInitializerLine = __LINE__
 		}
 	}
@@ -61,7 +61,7 @@ fun funWithClass(): LocalClassAccessor {
 
 		override val propertyInitializerFile get() = instance.propertyInitializerFile
 		override val propertyInitializerType get() = instance.propertyInitializerType
-		// TODO override val propertyInitializerMember get() = instance.propertyInitializerMember
+		override val propertyInitializerMember get() = instance.propertyInitializerMember
 		override val propertyInitializerLine get() = instance.propertyInitializerLine
 
 		override val propertyGetterFile get() = instance.propertyGetterFile
@@ -84,6 +84,7 @@ fun funWithClass(): LocalClassAccessor {
 
 		override val instanceInitializerFile get() = instance.instanceInitializerFile
 		override val instanceInitializerType get() = instance.instanceInitializerType
+		override val instanceInitializerMember get() = instance.instanceInitializerMember
 		override val instanceInitializerLine get() = instance.instanceInitializerLine
 	}
 }
@@ -96,7 +97,7 @@ interface LocalClassAccessor {
 
 	val propertyInitializerFile: String
 	val propertyInitializerType: String
-	// TODO val propertyInitializerMember: String
+	val propertyInitializerMember: String
 	val propertyInitializerLine: Int
 
 	val propertyGetterFile: String
@@ -111,5 +112,6 @@ interface LocalClassAccessor {
 
 	val instanceInitializerFile: String
 	val instanceInitializerType: String
+	val instanceInitializerMember: String
 	val instanceInitializerLine: Int
 }
