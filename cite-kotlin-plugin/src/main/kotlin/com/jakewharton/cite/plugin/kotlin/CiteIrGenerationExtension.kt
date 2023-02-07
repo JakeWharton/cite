@@ -9,6 +9,6 @@ internal class CiteIrGenerationExtension(
 	private val messageCollector: MessageCollector,
 ) : IrGenerationExtension {
 	override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
-		moduleFragment.transform(CiteElementTransformer(messageCollector), null)
+		moduleFragment.transform(CiteElementTransformer(messageCollector, pluginContext), null)
 	}
 }

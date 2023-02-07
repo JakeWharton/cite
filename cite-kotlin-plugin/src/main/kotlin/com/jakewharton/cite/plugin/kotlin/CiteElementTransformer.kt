@@ -1,34 +1,53 @@
 package com.jakewharton.cite.plugin.kotlin
 
 import org.jetbrains.kotlin.backend.common.IrElementTransformerVoidWithContext
+import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
+import org.jetbrains.kotlin.backend.common.lower.DeclarationIrBuilder
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageLocation
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageSeverity.ERROR
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
+import org.jetbrains.kotlin.descriptors.DescriptorVisibilities
 import org.jetbrains.kotlin.ir.IrFileEntry
 import org.jetbrains.kotlin.ir.IrStatement
+import org.jetbrains.kotlin.ir.builders.declarations.buildFun
+import org.jetbrains.kotlin.ir.builders.irBlockBody
+import org.jetbrains.kotlin.ir.builders.irReturn
 import org.jetbrains.kotlin.ir.declarations.IrAnonymousInitializer
 import org.jetbrains.kotlin.ir.declarations.IrClass
+import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.expressions.IrCall
+import org.jetbrains.kotlin.ir.expressions.IrConst
+import org.jetbrains.kotlin.ir.expressions.IrConstKind
 import org.jetbrains.kotlin.ir.expressions.IrExpression
+import org.jetbrains.kotlin.ir.expressions.IrPropertyReference
+import org.jetbrains.kotlin.ir.expressions.IrStatementOrigin
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
+import org.jetbrains.kotlin.ir.expressions.impl.IrFunctionExpressionImpl
 import org.jetbrains.kotlin.ir.types.getClass
+import org.jetbrains.kotlin.ir.types.typeWith
+import org.jetbrains.kotlin.ir.util.SYNTHETIC_OFFSET
 import org.jetbrains.kotlin.ir.util.isEnumEntry
 import org.jetbrains.kotlin.ir.util.isPropertyAccessor
 import org.jetbrains.kotlin.ir.util.kotlinFqName
 import org.jetbrains.kotlin.konan.file.File
+import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.SpecialNames
 
 internal class CiteElementTransformer(
 	private val messageCollector: MessageCollector,
+	private val pluginContext: IrPluginContext,
 ) : IrElementTransformerVoidWithContext() {
 	private val fileName = FqName("com.jakewharton.cite.<get-__FILE__>")
 	private val typeName = FqName("com.jakewharton.cite.<get-__TYPE__>")
 	private val memberName = FqName("com.jakewharton.cite.<get-__MEMBER__>")
 	private val lineName = FqName("com.jakewharton.cite.<get-__LINE__>")
+
+	private val function0 = pluginContext.referenceClass(ClassId(FqName("kotlin"), Name.identifier("Function0")))!!
 
 	private var visitingFile: IrFileEntry? = null
 	private var visitingType = ArrayDeque<String>()
@@ -75,58 +94,100 @@ internal class CiteElementTransformer(
 		return irStatement
 	}
 
+	override fun visitPropertyReference(expression: IrPropertyReference): IrExpression {
+		expression.getter?.let { getter ->
+			val owner = getter.owner
+			maybeReplaceCitation(expression, owner)?.let { replacement ->
+				if (replacement.kind == IrConstKind.Int) {
+					// TODO __LINE__ needs to box the int and I don't know how yet...
+					return@let
+				}
+				val function = pluginContext.irFactory.buildFun {
+					startOffset = SYNTHETIC_OFFSET
+					endOffset = SYNTHETIC_OFFSET
+					returnType = owner.returnType
+					origin = IrDeclarationOrigin.LOCAL_FUNCTION_FOR_LAMBDA
+					name = SpecialNames.ANONYMOUS
+					visibility = DescriptorVisibilities.LOCAL
+				}.apply {
+					parent = expression.symbol.owner.parent
+					body = DeclarationIrBuilder(pluginContext, symbol).irBlockBody {
+						+irReturn(replacement)
+					}
+				}
+				return IrFunctionExpressionImpl(
+					startOffset = expression.startOffset,
+					endOffset = expression.endOffset,
+					type = function0.typeWith(listOf(owner.returnType)),
+					origin = IrStatementOrigin.LAMBDA,
+					function = function
+				)
+			}
+		}
+
+		return super.visitPropertyReference(expression)
+	}
+
 	override fun visitCall(expression: IrCall): IrExpression {
 		val owner = expression.symbol.owner
 		if (owner.isPropertyAccessor) {
-			when (owner.kotlinFqName) {
-				fileName -> {
-					val visitingFile = visitingFile
-					if (visitingFile != null) {
-						return expression.swapConstString(visitingFile.name.substringAfterLast(File.separator))
-					} else {
-						expression.reportError("No file detected! Report bug at https://github.com/JakeWharton/cite/issues/new")
-					}
-				}
-				typeName -> {
-					val visitingType = visitingType.lastOrNull()
-					if (visitingType != null) {
-						return expression.swapConstString(visitingType)
-					} else {
-						expression.reportError("__TYPE__ may only be used within a type")
-					}
-				}
-				memberName -> {
-					val visitingMember = visitingMember.lastOrNull()
-					if (visitingMember != null) {
-						return expression.swapConstString(visitingMember)
-					} else {
-						expression.reportError("__MEMBER__ may only be used within a member")
-					}
-				}
-				lineName -> {
-					val visitingFile = visitingFile
-					if (visitingFile != null) {
-						val rangeInfo = visitingFile.getSourceRangeInfo(
-							expression.startOffset,
-							expression.endOffset,
-						)
-						val line = rangeInfo.startLineNumber + 1 // Humans are one-based.
-						return expression.swapConstInt(line)
-					} else {
-						expression.reportError("No line number detected! Report bug at https://github.com/JakeWharton/cite/issues/new")
-					}
-				}
+			maybeReplaceCitation(expression, owner)?.let { replacement ->
+				return replacement
 			}
 		}
 
 		return super.visitCall(expression) as IrCall
 	}
 
-	private fun IrExpression.swapConstString(value: String): IrExpression {
+	private fun maybeReplaceCitation(source: IrExpression, owner: IrSimpleFunction): IrConst<*>? {
+		when (owner.kotlinFqName) {
+			fileName -> {
+				val visitingFile = visitingFile
+				if (visitingFile != null) {
+					return source.swapConstString(visitingFile.name.substringAfterLast(File.separator))
+				} else {
+					source.reportError("No file detected! Report bug at https://github.com/JakeWharton/cite/issues/new")
+				}
+			}
+			typeName -> {
+				val visitingType = visitingType.lastOrNull()
+				if (visitingType != null) {
+					return source.swapConstString(visitingType)
+				} else {
+					source.reportError("__TYPE__ may only be used within a type")
+				}
+			}
+			memberName -> {
+				val visitingMember = visitingMember.lastOrNull()
+				if (visitingMember != null) {
+					return source.swapConstString(visitingMember)
+				} else {
+					source.reportError("__MEMBER__ may only be used within a member")
+				}
+			}
+			lineName -> {
+				val visitingFile = visitingFile
+				if (visitingFile != null) {
+					val rangeInfo = visitingFile.getSourceRangeInfo(
+						source.startOffset,
+						source.endOffset,
+					)
+					val line = rangeInfo.startLineNumber + 1 // Humans are one-based.
+					return source.swapConstInt(line)
+				} else {
+					source.reportError("No line number detected! Report bug at https://github.com/JakeWharton/cite/issues/new")
+				}
+			}
+		}
+
+		return null
+	}
+
+	private fun IrExpression.swapConstString(value: String): IrConst<String> {
 		return IrConstImpl.string(startOffset, endOffset, type, value)
 	}
 
-	private fun IrExpression.swapConstInt(value: Int): IrExpression {
+	private fun IrExpression.swapConstInt(value: Int): IrConst<Int> {
 		return IrConstImpl.int(startOffset, endOffset, type, value)
 	}
 

@@ -10,7 +10,6 @@ fun lambdaMember(): () -> String = { __MEMBER__ }
 fun lambdaLine(): () -> Int = { __LINE__ }
 
 fun propertyReferenceFile(): () -> String = ::__FILE__
-fun propertyReferenceType(): () -> String = ::__TYPE__
 fun propertyReferenceMember(): () -> String = ::__MEMBER__
 fun propertyReferenceLine(): () -> Int = ::__LINE__
 
