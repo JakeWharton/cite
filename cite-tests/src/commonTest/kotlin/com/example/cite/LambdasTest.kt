@@ -20,13 +20,13 @@ class LambdasTest {
 	@Test fun propertyReference() {
 		assertEquals("lambdas.kt", propertyReferenceFile().invoke())
 		assertEquals("propertyReferenceMember", propertyReferenceMember().invoke())
-		// TODO assertEquals(16, propertyReferenceLine().invoke())
+		assertEquals(14, propertyReferenceLine().invoke())
 	}
 
 	@Test fun propertyReferenceInType() {
 		assertEquals("lambdas.kt", LambdaType.propertyReferenceFile().invoke())
 		assertEquals("LambdaType", LambdaType.propertyReferenceType().invoke())
 		assertEquals("propertyReferenceMember", LambdaType.propertyReferenceMember().invoke())
-		// TODO assertEquals(16, LambdaType.propertyReferenceLine().invoke())
+		assertEquals(25, LambdaType.propertyReferenceLine().invoke())
 	}
 }

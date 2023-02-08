@@ -20,7 +20,6 @@ import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrConst
-import org.jetbrains.kotlin.ir.expressions.IrConstKind
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrPropertyReference
 import org.jetbrains.kotlin.ir.expressions.IrStatementOrigin
@@ -98,14 +97,10 @@ internal class CiteElementTransformer(
 		expression.getter?.let { getter ->
 			val owner = getter.owner
 			maybeReplaceCitation(expression, owner)?.let { replacement ->
-				if (replacement.kind == IrConstKind.Int) {
-					// TODO __LINE__ needs to box the int and I don't know how yet...
-					return@let
-				}
 				val function = pluginContext.irFactory.buildFun {
 					startOffset = SYNTHETIC_OFFSET
 					endOffset = SYNTHETIC_OFFSET
-					returnType = owner.returnType
+					returnType = replacement.type
 					origin = IrDeclarationOrigin.LOCAL_FUNCTION_FOR_LAMBDA
 					name = SpecialNames.ANONYMOUS
 					visibility = DescriptorVisibilities.LOCAL
@@ -118,7 +113,7 @@ internal class CiteElementTransformer(
 				return IrFunctionExpressionImpl(
 					startOffset = expression.startOffset,
 					endOffset = expression.endOffset,
-					type = function0.typeWith(listOf(owner.returnType)),
+					type = function0.typeWith(listOf(replacement.type)),
 					origin = IrStatementOrigin.LAMBDA,
 					function = function
 				)
@@ -184,11 +179,11 @@ internal class CiteElementTransformer(
 	}
 
 	private fun IrExpression.swapConstString(value: String): IrConst<String> {
-		return IrConstImpl.string(startOffset, endOffset, type, value)
+		return IrConstImpl.string(startOffset, endOffset, pluginContext.irBuiltIns.stringType, value)
 	}
 
 	private fun IrExpression.swapConstInt(value: Int): IrConst<Int> {
-		return IrConstImpl.int(startOffset, endOffset, type, value)
+		return IrConstImpl.int(startOffset, endOffset, pluginContext.irBuiltIns.intType, value)
 	}
 
 	private fun IrExpression.reportError(message: String) {
