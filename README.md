@@ -1,6 +1,6 @@
 # Cite for Kotlin
 
-A Kotlin compiler plugin for accessing information about the file being compiled.
+A Kotlin compiler plugin for embedding information about the file being compiled.
 
 For example, given:
 ```kotlin
