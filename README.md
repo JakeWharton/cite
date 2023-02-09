@@ -53,7 +53,29 @@ For example, using `__TYPE__` in a top-level function will fail to compile.
 
 ## Usage
 
-Snapshots of the development version are available in Sonatype's snapshots repository.
+Add the buildscript dependency and apply the plugin to each module in which
+you want to access the properties.
+
+```groovy
+buildscript {
+  repository {
+    mavenCental()
+  }
+  dependencies {
+    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.1.0'
+  }
+}
+
+apply plugin: 'org.jetbrains.kotlin.multiplatform' // Or .jvm
+apply plugin: 'com.jakewharton.cite'
+```
+
+The runtime dependency will be added as an `implementation` dependency automatically.
+Never add the runtime dependency yourself, as use without the plugin will not work.
+
+<details>
+<summary>Snapshots of the development version are available in Sonatype's snapshots repository.</summary>
+<p>
 
 ```groovy
 buildscript {
@@ -64,7 +86,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.1.0-SNAPSHOT'
+    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.2.0-SNAPSHOT'
   }
 }
 
@@ -72,8 +94,19 @@ apply plugin: 'org.jetbrains.kotlin.multiplatform' // Or .jvm
 apply plugin: 'com.jakewharton.cite'
 ```
 
-The runtime dependency will be added as an `implementation` dependency automatically.
-Never add the runtime dependency yourself, as use without the plugin will not work.
+</p>
+</details>
+
+### Compatibility
+
+Since Kotlin compiler plugins are an unstable API, certain versions of Cite only work with
+certain versions of Kotlin.
+
+| Kotlin         | Cite  |
+|----------------|-------|
+| 1.8.0 - 1.8.10 | 0.1.0 |
+
+Kotlin versions newer than those listed may be supported but have not been tested.
 
 
 # License

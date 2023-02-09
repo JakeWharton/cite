@@ -2,11 +2,10 @@
 
 ## [Unreleased]
 
-<!--
+
 ## [0.1.0] - 2023-02-08
 
 Initial release.
--->
 
 
 [Unreleased]: https://github.com/JakeWharton/cite/compare/0.1.0...HEAD
