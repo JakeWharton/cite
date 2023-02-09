@@ -45,7 +45,7 @@ Four properties are provided:
 | `__FILE__`   | `String` | Filename of the source file.                                     | "main.kt" |
 | `__TYPE__`   | `String` | Name of the nearest enclosing class, object, interface, or enum. | "Greeter" |
 | `__MEMBER__` | `String` | Name of the nearest enclosing function or property body.         | "sayHi"   |
-| `__LINE__`   | `Int`    | One-based line number of this property reference.                | 20        |
+| `__LINE__`   | `Int`    | One-based line number of this property access.                   | 16        |
 
 Use of a property in a location without an associated enclosing type is an error.
 For example, using `__TYPE__` in a top-level function will fail to compile.
