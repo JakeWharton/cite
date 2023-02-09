@@ -6,8 +6,23 @@ kotlin {
 	explicitApi()
 }
 
+sourceSets.configureEach {
+	languageSettings {
+		optIn('org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi')
+	}
+}
+
 dependencies {
 	compileOnly libs.kotlin.compiler
 	compileOnly libs.autoService.annotations
 	kapt libs.autoService.compiler
+
+	testImplementation libs.kotlin.stdlib
+	testImplementation libs.kotlin.test
+	testImplementation libs.kotlinCompilerTester
+	testImplementation libs.strikt
+
+	// For use in tests.
+	// TODO Use dedicated configuration and inject classpath as test system property.
+	testImplementation projects.citeRuntime
 }
