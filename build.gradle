@@ -34,6 +34,22 @@ allprojects {
 		}
 	}
 
+	plugins.withId('org.jetbrains.kotlin.jvm') {
+		kotlin {
+			jvmToolchain {
+				languageVersion.set(JavaLanguageVersion.of(8))
+			}
+		}
+	}
+
+	plugins.withId('org.jetbrains.kotlin.multiplatform') {
+		kotlin {
+			jvmToolchain {
+				languageVersion.set(JavaLanguageVersion.of(8))
+			}
+		}
+	}
+
 	plugins.withId('maven-publish') {
 		publishing {
 			repositories {

@@ -15,4 +15,19 @@ allprojects {
 	repositories {
 		mavenCentral()
 	}
+
+	plugins.withId('java-base') {
+		java {
+			sourceCompatibility = JavaVersion.VERSION_1_8
+			targetCompatibility = JavaVersion.VERSION_1_8
+		}
+	}
+
+	plugins.withId('org.jetbrains.kotlin.jvm') {
+		kotlin {
+			jvmToolchain {
+				languageVersion.set(JavaLanguageVersion.of(8))
+			}
+		}
+	}
 }
