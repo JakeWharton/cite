@@ -19,4 +19,4 @@ autoService-annotations = { module = "com.google.auto.service:auto-service-annot
 
 junit = "junit:junit:4.13.2"
 strikt = "io.strikt:strikt-core:0.34.1"
-asm-util = "org.ow2.asm:asm-util:9.4"
+asm-util = "org.ow2.asm:asm-util:9.5"
