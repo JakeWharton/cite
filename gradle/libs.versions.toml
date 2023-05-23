@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.8.10"
-auto-service="1.0.1"
+auto-service="1.1.0"
 
 [libraries]
 kotlin-compiler = { module = "org.jetbrains.kotlin:kotlin-compiler", version.ref = "kotlin" }
