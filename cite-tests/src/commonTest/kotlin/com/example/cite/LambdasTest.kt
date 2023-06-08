@@ -1,32 +1,33 @@
 package com.example.cite
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class LambdasTest {
 	@Test fun lambda() {
-		assertEquals("lambdas.kt", lambdaFile().invoke())
-		assertEquals("lambdaMember", lambdaMember().invoke())
-		assertEquals(10, lambdaLine().invoke())
+		assertThat(lambdaFile().invoke()).isEqualTo("lambdas.kt")
+		assertThat(lambdaMember().invoke()).isEqualTo("lambdaMember")
+		assertThat(lambdaLine().invoke()).isEqualTo(10)
 	}
 
 	@Test fun lambdaInType() {
-		assertEquals("lambdas.kt", LambdaType.lambdaFile().invoke())
-		assertEquals("LambdaType", LambdaType.lambdaType().invoke())
-		assertEquals("lambdaMember", LambdaType.lambdaMember().invoke())
-		assertEquals(20, LambdaType.lambdaLine().invoke())
+		assertThat(LambdaType.lambdaFile().invoke()).isEqualTo("lambdas.kt")
+		assertThat(LambdaType.lambdaType().invoke()).isEqualTo("LambdaType")
+		assertThat(LambdaType.lambdaMember().invoke()).isEqualTo("lambdaMember")
+		assertThat(LambdaType.lambdaLine().invoke()).isEqualTo(20)
 	}
 
 	@Test fun propertyReference() {
-		assertEquals("lambdas.kt", propertyReferenceFile().invoke())
-		assertEquals("propertyReferenceMember", propertyReferenceMember().invoke())
-		assertEquals(14, propertyReferenceLine().invoke())
+		assertThat(propertyReferenceFile().invoke()).isEqualTo("lambdas.kt")
+		assertThat(propertyReferenceMember().invoke()).isEqualTo("propertyReferenceMember")
+		assertThat(propertyReferenceLine().invoke()).isEqualTo(14)
 	}
 
 	@Test fun propertyReferenceInType() {
-		assertEquals("lambdas.kt", LambdaType.propertyReferenceFile().invoke())
-		assertEquals("LambdaType", LambdaType.propertyReferenceType().invoke())
-		assertEquals("propertyReferenceMember", LambdaType.propertyReferenceMember().invoke())
-		assertEquals(25, LambdaType.propertyReferenceLine().invoke())
+		assertThat(LambdaType.propertyReferenceFile().invoke()).isEqualTo("lambdas.kt")
+		assertThat(LambdaType.propertyReferenceType().invoke()).isEqualTo("LambdaType")
+		assertThat(LambdaType.propertyReferenceMember().invoke()).isEqualTo("propertyReferenceMember")
+		assertThat(LambdaType.propertyReferenceLine().invoke()).isEqualTo(25)
 	}
 }

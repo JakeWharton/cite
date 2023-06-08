@@ -1,20 +1,21 @@
 package com.example.cite
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class PropertyDelegateTest {
 	@Test fun classDelegates() {
-		assertEquals("propertyDelegates.kt", PropertyDelegates.delegateFile)
-		assertEquals("PropertyDelegates", PropertyDelegates.delegateType)
-		assertEquals(11, PropertyDelegates.delegateLine)
+		assertThat(PropertyDelegates.delegateFile).isEqualTo("propertyDelegates.kt")
+		assertThat(PropertyDelegates.delegateType).isEqualTo("PropertyDelegates")
+		assertThat(PropertyDelegates.delegateLine).isEqualTo(11)
 	}
 
 	@Test fun localDelegates() {
 		val locals = PropertyDelegates.locals()
-		assertEquals("propertyDelegates.kt", locals.delegateFile)
-		assertEquals("PropertyDelegates", locals.delegateType)
-		assertEquals("locals", locals.delegateMember)
-		assertEquals(17, locals.delegateLine)
+		assertThat(locals.delegateFile).isEqualTo("propertyDelegates.kt")
+		assertThat(locals.delegateType).isEqualTo("PropertyDelegates")
+		assertThat(locals.delegateMember).isEqualTo("locals")
+		assertThat(locals.delegateLine).isEqualTo(17)
 	}
 }

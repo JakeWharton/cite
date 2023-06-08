@@ -1,21 +1,22 @@
 package com.example.cite
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class InterfaceTest {
 	@Test fun `fun`() {
-		assertEquals("interface.kt", AnInterface.Instance.funFile())
-		assertEquals("AnInterface", AnInterface.Instance.funType())
-		assertEquals("funMember", AnInterface.Instance.funMember())
-		assertEquals(12, AnInterface.Instance.funLine())
+		assertThat(AnInterface.Instance.funFile()).isEqualTo("interface.kt")
+		assertThat(AnInterface.Instance.funType()).isEqualTo("AnInterface")
+		assertThat(AnInterface.Instance.funMember()).isEqualTo("funMember")
+		assertThat(AnInterface.Instance.funLine()).isEqualTo(12)
 	}
 
 	@Test fun propertyGetter() {
-		assertEquals("interface.kt", AnInterface.Instance.propertyGetterFile)
-		assertEquals("AnInterface", AnInterface.Instance.propertyGetterType)
-		assertEquals("propertyGetterMember", AnInterface.Instance.propertyGetterMember)
-		assertEquals(17, AnInterface.Instance.propertyGetterLine)
+		assertThat(AnInterface.Instance.propertyGetterFile).isEqualTo("interface.kt")
+		assertThat(AnInterface.Instance.propertyGetterType).isEqualTo("AnInterface")
+		assertThat(AnInterface.Instance.propertyGetterMember).isEqualTo("propertyGetterMember")
+		assertThat(AnInterface.Instance.propertyGetterLine).isEqualTo(17)
 	}
 
 	@Test fun propertySetter() {
@@ -25,9 +26,9 @@ class InterfaceTest {
 		AnInterface.Instance.propertySetterMember = "dummy"
 		AnInterface.Instance.propertySetterLine = -1
 
-		assertEquals("interface.kt", AnInterface.setterFileValue)
-		assertEquals("AnInterface", AnInterface.setterTypeValue)
-		assertEquals("propertySetterMember", AnInterface.setterMemberValue)
-		assertEquals(37, AnInterface.setterLineValue)
+		assertThat(AnInterface.setterFileValue).isEqualTo("interface.kt")
+		assertThat(AnInterface.setterTypeValue).isEqualTo("AnInterface")
+		assertThat(AnInterface.setterMemberValue).isEqualTo("propertySetterMember")
+		assertThat(AnInterface.setterLineValue).isEqualTo(37)
 	}
 }

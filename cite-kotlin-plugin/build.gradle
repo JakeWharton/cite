@@ -20,7 +20,7 @@ dependencies {
 	testImplementation libs.kotlin.stdlib
 	testImplementation libs.kotlin.test
 	testImplementation libs.kotlinCompilerTester
-	testImplementation libs.strikt
+	testImplementation libs.assertk
 
 	// For use in tests.
 	// TODO Use dedicated configuration and inject classpath as test system property.

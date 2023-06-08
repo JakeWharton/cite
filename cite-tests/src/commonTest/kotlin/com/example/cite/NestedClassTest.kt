@@ -1,12 +1,13 @@
 package com.example.cite
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class NestedClassTest {
 	@Test fun test() {
-		assertEquals("OuterType", OuterType.first)
-		assertEquals("OuterType", OuterType.second)
-		assertEquals("InnerType", OuterType.InnerType.inner)
+		assertThat(OuterType.first).isEqualTo("OuterType")
+		assertThat(OuterType.second).isEqualTo("OuterType")
+		assertThat(OuterType.InnerType.inner).isEqualTo("InnerType")
 	}
 }

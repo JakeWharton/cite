@@ -1,24 +1,25 @@
 package com.example.cite
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class TopLevelTest {
 	@Test fun `fun`() {
-		assertEquals("topLevel.kt", topLevelFunFile())
-		assertEquals("topLevelFunMember", topLevelFunMember())
-		assertEquals(9, topLevelFunLine())
+		assertThat(topLevelFunFile()).isEqualTo("topLevel.kt")
+		assertThat(topLevelFunMember()).isEqualTo("topLevelFunMember")
+		assertThat(topLevelFunLine()).isEqualTo(9)
 	}
 
 	@Test fun propertyInitializer() {
-		assertEquals("topLevel.kt", topLevelPropertyInitializerFile)
-		assertEquals(12, topLevelPropertyInitializerLine)
+		assertThat(topLevelPropertyInitializerFile).isEqualTo("topLevel.kt")
+		assertThat(topLevelPropertyInitializerLine).isEqualTo(12)
 	}
 
 	@Test fun propertyGetter() {
-		assertEquals("topLevel.kt", topLevelPropertyGetterFile)
-		assertEquals("topLevelPropertyGetterMember", topLevelPropertyGetterMember)
-		assertEquals(16, topLevelPropertyGetterLine)
+		assertThat(topLevelPropertyGetterFile).isEqualTo("topLevel.kt")
+		assertThat(topLevelPropertyGetterMember).isEqualTo("topLevelPropertyGetterMember")
+		assertThat(topLevelPropertyGetterLine).isEqualTo(16)
 	}
 
 	@Test fun propertySetter() {
@@ -27,8 +28,8 @@ class TopLevelTest {
 		topLevelPropertySetterMember = "dummy"
 		topLevelPropertySetterLine = -1
 
-		assertEquals("topLevel.kt", topLevelPropertySetterFile)
-		assertEquals("topLevelPropertySetterMember", topLevelPropertySetterMember)
-		assertEquals(28, topLevelPropertySetterLine)
+		assertThat(topLevelPropertySetterFile).isEqualTo("topLevel.kt")
+		assertThat(topLevelPropertySetterMember).isEqualTo("topLevelPropertySetterMember")
+		assertThat(topLevelPropertySetterLine).isEqualTo(28)
 	}
 }

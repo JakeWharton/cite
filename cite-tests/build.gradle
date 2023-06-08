@@ -11,12 +11,11 @@ kotlin {
 	macosX64()
 	mingwX64()
 
-	wasm32()
-
 	sourceSets {
 		commonTest {
 			dependencies {
 				implementation libs.kotlin.test
+				implementation libs.assertk
 			}
 		}
 	}

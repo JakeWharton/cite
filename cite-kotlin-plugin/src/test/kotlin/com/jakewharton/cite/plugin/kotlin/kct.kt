@@ -6,10 +6,12 @@ import com.tschuchort.compiletesting.KotlinCompilation.Result
 import com.tschuchort.compiletesting.SourceFile
 import org.jetbrains.kotlin.compiler.plugin.AbstractCliOption
 import org.jetbrains.kotlin.compiler.plugin.CommandLineProcessor
-import strikt.api.Assertion
-import strikt.api.expectThat
+import assertk.assertThat
+import assertk.Assert
+import assertk.assertions.prop
+import assertk.fail
 
-fun jvmCompile(vararg files: SourceFile): Assertion.Builder<Result> {
+fun jvmCompile(vararg files: SourceFile): Assert<Result> {
 	return KotlinCompilation()
 		.apply {
 			sources = files.toList()
@@ -23,25 +25,19 @@ fun jvmCompile(vararg files: SourceFile): Assertion.Builder<Result> {
 			useIR = true
 		}
 		.compile()
-		.let(::expectThat)
+		.let(::assertThat)
 }
 
-fun Assertion.Builder<Result>.isSuccess() = apply {
-	assert("Compilation succeeded") {
-		when (it.exitCode) {
-			ExitCode.OK -> pass()
-			else -> fail("${it.exitCode} ${it.messages}")
-		}
+fun Assert<Result>.isSuccess() = given {
+	if (it.exitCode != ExitCode.OK) {
+		fail("${it.exitCode} ${it.messages}")
 	}
 }
 
-fun Assertion.Builder<Result>.isCompilerFailure() = apply {
-	assert("Compilation failed") {
-		when (it.exitCode) {
-			ExitCode.COMPILATION_ERROR -> pass()
-			else -> fail("${it.exitCode} ${it.messages}")
-		}
+fun Assert<Result>.isCompilerFailure() = given {
+	if (it.exitCode != ExitCode.COMPILATION_ERROR) {
+		fail("${it.exitCode} ${it.messages}")
 	}
 }
 
-val Assertion.Builder<Result>.messages: Assertion.Builder<String> get() = get { messages }
+val Assert<Result>.messages: Assert<String> get() = prop(Result::messages)
