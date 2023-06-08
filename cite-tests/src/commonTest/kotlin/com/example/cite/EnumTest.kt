@@ -1,34 +1,35 @@
 package com.example.cite
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class EnumTest {
 	@Test fun normalInitializer() {
-		assertEquals("enum.kt", AnEnum.Normal.instanceInitializerFile)
-		assertEquals("AnEnum", AnEnum.Normal.instanceInitializerType)
-		assertEquals("<init>", AnEnum.Normal.instanceInitializerMember)
-		assertEquals(100, AnEnum.Normal.instanceInitializerLine)
+		assertThat(AnEnum.Normal.instanceInitializerFile).isEqualTo("enum.kt")
+		assertThat(AnEnum.Normal.instanceInitializerType).isEqualTo("AnEnum")
+		assertThat(AnEnum.Normal.instanceInitializerMember).isEqualTo("<init>")
+		assertThat(AnEnum.Normal.instanceInitializerLine).isEqualTo(100)
 	}
 
 	@Test fun normalFun() {
-		assertEquals("enum.kt", AnEnum.Normal.funFile())
-		assertEquals("AnEnum", AnEnum.Normal.funType())
-		assertEquals("funMember", AnEnum.Normal.funMember())
-		assertEquals(59, AnEnum.Normal.funLine())
+		assertThat(AnEnum.Normal.funFile()).isEqualTo("enum.kt")
+		assertThat(AnEnum.Normal.funType()).isEqualTo("AnEnum")
+		assertThat(AnEnum.Normal.funMember()).isEqualTo("funMember")
+		assertThat(AnEnum.Normal.funLine()).isEqualTo(59)
 	}
 
 	@Test fun normalPropertyInitializer() {
-		assertEquals("enum.kt", AnEnum.Normal.propertyInitializerFile)
-		assertEquals("AnEnum", AnEnum.Normal.propertyInitializerType)
-		assertEquals(63, AnEnum.Normal.propertyInitializerLine)
+		assertThat(AnEnum.Normal.propertyInitializerFile).isEqualTo("enum.kt")
+		assertThat(AnEnum.Normal.propertyInitializerType).isEqualTo("AnEnum")
+		assertThat(AnEnum.Normal.propertyInitializerLine).isEqualTo(63)
 	}
 
 	@Test fun normalPropertyGetter() {
-		assertEquals("enum.kt", AnEnum.Normal.propertyGetterFile)
-		assertEquals("AnEnum", AnEnum.Normal.propertyGetterType)
-		assertEquals("propertyGetterMember", AnEnum.Normal.propertyGetterMember)
-		assertEquals(68, AnEnum.Normal.propertyGetterLine)
+		assertThat(AnEnum.Normal.propertyGetterFile).isEqualTo("enum.kt")
+		assertThat(AnEnum.Normal.propertyGetterType).isEqualTo("AnEnum")
+		assertThat(AnEnum.Normal.propertyGetterMember).isEqualTo("propertyGetterMember")
+		assertThat(AnEnum.Normal.propertyGetterLine).isEqualTo(68)
 	}
 
 	@Test fun normalPropertySetter() {
@@ -38,37 +39,37 @@ class EnumTest {
 		AnEnum.Normal.propertySetterMember = "dummy"
 		AnEnum.Normal.propertySetterLine = -1
 
-		assertEquals("enum.kt", AnEnum.Normal.propertySetterFile)
-		assertEquals("AnEnum", AnEnum.Normal.propertySetterType)
-		assertEquals("propertySetterMember", AnEnum.Normal.propertySetterMember)
-		assertEquals(85, AnEnum.Normal.propertySetterLine)
+		assertThat(AnEnum.Normal.propertySetterFile).isEqualTo("enum.kt")
+		assertThat(AnEnum.Normal.propertySetterType).isEqualTo("AnEnum")
+		assertThat(AnEnum.Normal.propertySetterMember).isEqualTo("propertySetterMember")
+		assertThat(AnEnum.Normal.propertySetterLine).isEqualTo(85)
 	}
 
 	@Test fun subtypeInitializer() {
-		assertEquals("enum.kt", AnEnum.Normal.instanceInitializerFile)
-		assertEquals("AnEnum", AnEnum.Normal.instanceInitializerType)
-		assertEquals("<init>", AnEnum.Normal.instanceInitializerMember)
-		assertEquals(100, AnEnum.Normal.instanceInitializerLine)
+		assertThat(AnEnum.Normal.instanceInitializerFile).isEqualTo("enum.kt")
+		assertThat(AnEnum.Normal.instanceInitializerType).isEqualTo("AnEnum")
+		assertThat(AnEnum.Normal.instanceInitializerMember).isEqualTo("<init>")
+		assertThat(AnEnum.Normal.instanceInitializerLine).isEqualTo(100)
 	}
 
 	@Test fun subtypeFun() {
-		assertEquals("enum.kt", AnEnum.Subtype.funFile())
-		assertEquals("AnEnum", AnEnum.Subtype.funType())
-		assertEquals("funMember", AnEnum.Subtype.funMember())
-		assertEquals(14, AnEnum.Subtype.funLine())
+		assertThat(AnEnum.Subtype.funFile()).isEqualTo("enum.kt")
+		assertThat(AnEnum.Subtype.funType()).isEqualTo("AnEnum")
+		assertThat(AnEnum.Subtype.funMember()).isEqualTo("funMember")
+		assertThat(AnEnum.Subtype.funLine()).isEqualTo(14)
 	}
 
 	@Test fun subtypePropertyInitializer() {
-		assertEquals("enum.kt", AnEnum.Subtype.propertyInitializerFile)
-		assertEquals("AnEnum", AnEnum.Subtype.propertyInitializerType)
-		assertEquals(18, AnEnum.Subtype.propertyInitializerLine)
+		assertThat(AnEnum.Subtype.propertyInitializerFile).isEqualTo("enum.kt")
+		assertThat(AnEnum.Subtype.propertyInitializerType).isEqualTo("AnEnum")
+		assertThat(AnEnum.Subtype.propertyInitializerLine).isEqualTo(18)
 	}
 
 	@Test fun subtypePropertyGetter() {
-		assertEquals("enum.kt", AnEnum.Subtype.propertyGetterFile)
-		assertEquals("AnEnum", AnEnum.Subtype.propertyGetterType)
-		assertEquals("propertyGetterMember", AnEnum.Subtype.propertyGetterMember)
-		assertEquals(23, AnEnum.Subtype.propertyGetterLine)
+		assertThat(AnEnum.Subtype.propertyGetterFile).isEqualTo("enum.kt")
+		assertThat(AnEnum.Subtype.propertyGetterType).isEqualTo("AnEnum")
+		assertThat(AnEnum.Subtype.propertyGetterMember).isEqualTo("propertyGetterMember")
+		assertThat(AnEnum.Subtype.propertyGetterLine).isEqualTo(23)
 	}
 
 	@Test fun subtypePropertySetter() {
@@ -78,9 +79,9 @@ class EnumTest {
 		AnEnum.Subtype.propertySetterMember = "dummy"
 		AnEnum.Subtype.propertySetterLine = -1
 
-		assertEquals("enum.kt", AnEnum.Subtype.propertySetterFile)
-		assertEquals("AnEnum", AnEnum.Subtype.propertySetterType)
-		assertEquals("propertySetterMember", AnEnum.Subtype.propertySetterMember)
-		assertEquals(40, AnEnum.Subtype.propertySetterLine)
+		assertThat(AnEnum.Subtype.propertySetterFile).isEqualTo("enum.kt")
+		assertThat(AnEnum.Subtype.propertySetterType).isEqualTo("AnEnum")
+		assertThat(AnEnum.Subtype.propertySetterMember).isEqualTo("propertySetterMember")
+		assertThat(AnEnum.Subtype.propertySetterLine).isEqualTo(40)
 	}
 }

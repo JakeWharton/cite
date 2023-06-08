@@ -18,5 +18,5 @@ autoService-compiler = { module = "com.google.auto.service:auto-service", versio
 autoService-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "auto-service" }
 
 junit = "junit:junit:4.13.2"
-strikt = "io.strikt:strikt-core:0.34.1"
+assertk = "com.willowtreeapps.assertk:assertk:0.26.1"
 asm-util = "org.ow2.asm:asm-util:9.5"

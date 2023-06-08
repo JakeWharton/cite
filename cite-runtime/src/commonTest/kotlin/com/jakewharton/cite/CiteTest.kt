@@ -1,39 +1,32 @@
 package com.jakewharton.cite
 
+import assertk.assertFailure
+import assertk.assertions.isEqualTo
+import assertk.assertions.message
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
 
 class CiteTest {
 	@Test fun fileThrowsByDefault() {
-		val t = assertFailsWith<UnsupportedOperationException> { __FILE__ }
-		assertEquals(
-			"Property reference was not replaced by compiler. Did you apply Cite plugin?",
-			t.message,
-		)
+		assertFailure { __FILE__ }
+			.message()
+			.isEqualTo("Property reference was not replaced by compiler. Did you apply Cite plugin?")
 	}
 
 	@Test fun typeThrowsByDefault() {
-		val t = assertFailsWith<UnsupportedOperationException> { __TYPE__ }
-		assertEquals(
-			"Property reference was not replaced by compiler. Did you apply Cite plugin?",
-			t.message,
-		)
+		assertFailure { __TYPE__ }
+			.message()
+			.isEqualTo("Property reference was not replaced by compiler. Did you apply Cite plugin?")
 	}
 
 	@Test fun memberThrowsByDefault() {
-		val t = assertFailsWith<UnsupportedOperationException> { __MEMBER__ }
-		assertEquals(
-			"Property reference was not replaced by compiler. Did you apply Cite plugin?",
-			t.message,
-		)
+		assertFailure { __MEMBER__ }
+			.message()
+			.isEqualTo("Property reference was not replaced by compiler. Did you apply Cite plugin?")
 	}
 
 	@Test fun lineThrowsByDefault() {
-		val t = assertFailsWith<UnsupportedOperationException> { __LINE__ }
-		assertEquals(
-			"Property reference was not replaced by compiler. Did you apply Cite plugin?",
-			t.message,
-		)
+		assertFailure { __LINE__ }
+			.message()
+			.isEqualTo("Property reference was not replaced by compiler. Did you apply Cite plugin?")
 	}
 }

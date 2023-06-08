@@ -1,34 +1,35 @@
 package com.example.cite
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class ObjectTest {
 	@Test fun initializer() {
-		assertEquals("object.kt", AnObject.instanceInitializerFile)
-		assertEquals("AnObject", AnObject.instanceInitializerType)
-		assertEquals("<init>", AnObject.instanceInitializerMember)
-		assertEquals(48, AnObject.instanceInitializerLine)
+		assertThat(AnObject.instanceInitializerFile).isEqualTo("object.kt")
+		assertThat(AnObject.instanceInitializerType).isEqualTo("AnObject")
+		assertThat(AnObject.instanceInitializerMember).isEqualTo("<init>")
+		assertThat(AnObject.instanceInitializerLine).isEqualTo(48)
 	}
 
 	@Test fun `fun`() {
-		assertEquals("object.kt", AnObject.funFile())
-		assertEquals("AnObject", AnObject.funType())
-		assertEquals("funMember", AnObject.funMember())
-		assertEquals(12, AnObject.funLine())
+		assertThat(AnObject.funFile()).isEqualTo("object.kt")
+		assertThat(AnObject.funType()).isEqualTo("AnObject")
+		assertThat(AnObject.funMember()).isEqualTo("funMember")
+		assertThat(AnObject.funLine()).isEqualTo(12)
 	}
 
 	@Test fun propertyInitializer() {
-		assertEquals("object.kt", AnObject.propertyInitializerFile)
-		assertEquals("AnObject", AnObject.propertyInitializerType)
-		assertEquals(16, AnObject.propertyInitializerLine)
+		assertThat(AnObject.propertyInitializerFile).isEqualTo("object.kt")
+		assertThat(AnObject.propertyInitializerType).isEqualTo("AnObject")
+		assertThat(AnObject.propertyInitializerLine).isEqualTo(16)
 	}
 
 	@Test fun propertyGetter() {
-		assertEquals("object.kt", AnObject.propertyGetterFile)
-		assertEquals("AnObject", AnObject.propertyGetterType)
-		assertEquals("propertyGetterMember", AnObject.propertyGetterMember)
-		assertEquals(21, AnObject.propertyGetterLine)
+		assertThat(AnObject.propertyGetterFile).isEqualTo("object.kt")
+		assertThat(AnObject.propertyGetterType).isEqualTo("AnObject")
+		assertThat(AnObject.propertyGetterMember).isEqualTo("propertyGetterMember")
+		assertThat(AnObject.propertyGetterLine).isEqualTo(21)
 	}
 
 	@Test fun propertySetter() {
@@ -38,9 +39,9 @@ class ObjectTest {
 		AnObject.propertySetterMember = "dummy"
 		AnObject.propertySetterLine = -1
 
-		assertEquals("object.kt", AnObject.propertySetterFile)
-		assertEquals("AnObject", AnObject.propertySetterType)
-		assertEquals("propertySetterMember", AnObject.propertySetterMember)
-		assertEquals(37, AnObject.propertySetterLine)
+		assertThat(AnObject.propertySetterFile).isEqualTo("object.kt")
+		assertThat(AnObject.propertySetterType).isEqualTo("AnObject")
+		assertThat(AnObject.propertySetterMember).isEqualTo("propertySetterMember")
+		assertThat(AnObject.propertySetterLine).isEqualTo(37)
 	}
 }

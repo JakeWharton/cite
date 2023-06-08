@@ -36,10 +36,4 @@ kotlin {
 			freeCompilerArgs += "-Xtemporary-files-dir=${new File(buildDir, "dump").absolutePath}"
 		}
 	}
-
-	wasm32 {
-		binaries.executable {
-			entryPoint = 'com.example.cite.main'
-		}
-	}
 }

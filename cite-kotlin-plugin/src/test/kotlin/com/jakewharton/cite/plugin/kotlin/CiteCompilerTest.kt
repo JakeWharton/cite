@@ -1,8 +1,9 @@
 package com.jakewharton.cite.plugin.kotlin
 
+import assertk.all
+import assertk.assertions.contains
 import com.tschuchort.compiletesting.SourceFile
 import kotlin.test.Test
-import strikt.assertions.contains
 
 class CiteCompilerTest {
 	@Test fun typeTopLevelFunctionFails() {
@@ -13,10 +14,10 @@ class CiteCompilerTest {
 			fun noType() = __TYPE__
 			""",
 		)
-		jvmCompile(source)
-			.isCompilerFailure()
-			.messages
-			.contains("main.kt:2:16 __TYPE__ may only be used within a type")
+		jvmCompile(source).all {
+			isCompilerFailure()
+			messages.contains("main.kt:2:16 __TYPE__ may only be used within a type")
+		}
 	}
 
 	@Test fun typeTopLevelPropertyInitializerFails() {
@@ -27,10 +28,10 @@ class CiteCompilerTest {
 			val noType = __TYPE__
 			""",
 		)
-		jvmCompile(source)
-			.isCompilerFailure()
-			.messages
-			.contains("main.kt:2:14 __TYPE__ may only be used within a type")
+		jvmCompile(source).all {
+			isCompilerFailure()
+			messages.contains("main.kt:2:14 __TYPE__ may only be used within a type")
+		}
 	}
 
 	@Test fun typeTopLevelPropertyGetterFails() {
@@ -41,10 +42,10 @@ class CiteCompilerTest {
 			val noType get() = __TYPE__
 			""",
 		)
-		jvmCompile(source)
-			.isCompilerFailure()
-			.messages
-			.contains("main.kt:2:20 __TYPE__ may only be used within a type")
+		jvmCompile(source).all {
+			isCompilerFailure()
+			messages.contains("main.kt:2:20 __TYPE__ may only be used within a type")
+		}
 	}
 
 	@Test fun typeTopLevelPropertySetterFails() {
@@ -58,10 +59,11 @@ class CiteCompilerTest {
 				}
 			""",
 		)
-		jvmCompile(source)
-			.isCompilerFailure()
-			.messages
-			.contains("main.kt:4:11 __TYPE__ may only be used within a type")
+		jvmCompile(source).all {
+			isCompilerFailure()
+			messages
+				.contains("main.kt:4:11 __TYPE__ may only be used within a type")
+		}
 	}
 
 	@Test fun memberTopLevelPropertyInitializerFails() {
@@ -72,9 +74,9 @@ class CiteCompilerTest {
 			val noMember = __MEMBER__
 			""",
 		)
-		jvmCompile(source)
-			.isCompilerFailure()
-			.messages
-			.contains("main.kt:2:16 __MEMBER__ may only be used within a member")
+		jvmCompile(source).all {
+			isCompilerFailure()
+			messages.contains("main.kt:2:16 __MEMBER__ may only be used within a member")
+		}
 	}
 }

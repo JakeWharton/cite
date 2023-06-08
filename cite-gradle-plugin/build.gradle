@@ -32,7 +32,7 @@ dependencies {
 
 	testImplementation gradleTestKit()
 	testImplementation libs.junit
-	testImplementation libs.strikt
+	testImplementation libs.assertk
 	testImplementation libs.asm.util
 }
 

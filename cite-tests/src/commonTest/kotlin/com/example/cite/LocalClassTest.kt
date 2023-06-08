@@ -1,37 +1,38 @@
 package com.example.cite
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class LocalClassTest {
 	private val accessor = funWithClass()
 
 	@Test fun initializer() {
-		assertEquals("localClass.kt", accessor.instanceInitializerFile)
-		assertEquals("LocalClass", accessor.instanceInitializerType)
-		assertEquals("<init>", accessor.instanceInitializerMember)
-		assertEquals(50, accessor.instanceInitializerLine)
+		assertThat(accessor.instanceInitializerFile).isEqualTo("localClass.kt")
+		assertThat(accessor.instanceInitializerType).isEqualTo("LocalClass")
+		assertThat(accessor.instanceInitializerMember).isEqualTo("<init>")
+		assertThat(accessor.instanceInitializerLine).isEqualTo(50)
 	}
 
 	@Test fun `fun`() {
-		assertEquals("localClass.kt", accessor.funFile())
-		assertEquals("LocalClass", accessor.funType())
-		assertEquals("funMember", accessor.funMember())
-		assertEquals(13, accessor.funLine())
+		assertThat(accessor.funFile()).isEqualTo("localClass.kt")
+		assertThat(accessor.funType()).isEqualTo("LocalClass")
+		assertThat(accessor.funMember()).isEqualTo("funMember")
+		assertThat(accessor.funLine()).isEqualTo(13)
 	}
 
 	@Test fun propertyInitializer() {
-		assertEquals("localClass.kt", accessor.propertyInitializerFile)
-		assertEquals("LocalClass", accessor.propertyInitializerType)
-		assertEquals("funWithClass", accessor.propertyInitializerMember)
-		assertEquals(18, accessor.propertyInitializerLine)
+		assertThat(accessor.propertyInitializerFile).isEqualTo("localClass.kt")
+		assertThat(accessor.propertyInitializerType).isEqualTo("LocalClass")
+		assertThat(accessor.propertyInitializerMember).isEqualTo("funWithClass")
+		assertThat(accessor.propertyInitializerLine).isEqualTo(18)
 	}
 
 	@Test fun propertyGetter() {
-		assertEquals("localClass.kt", accessor.propertyGetterFile)
-		assertEquals("LocalClass", accessor.propertyGetterType)
-		assertEquals("propertyGetterMember", accessor.propertyGetterMember)
-		assertEquals(23, accessor.propertyGetterLine)
+		assertThat(accessor.propertyGetterFile).isEqualTo("localClass.kt")
+		assertThat(accessor.propertyGetterType).isEqualTo("LocalClass")
+		assertThat(accessor.propertyGetterMember).isEqualTo("propertyGetterMember")
+		assertThat(accessor.propertyGetterLine).isEqualTo(23)
 	}
 
 	@Test fun propertySetter() {
@@ -41,9 +42,9 @@ class LocalClassTest {
 		accessor.propertySetterMember = "dummy"
 		accessor.propertySetterLine = -1
 
-		assertEquals("localClass.kt", accessor.propertySetterFile)
-		assertEquals("LocalClass", accessor.propertySetterType)
-		assertEquals("propertySetterMember", accessor.propertySetterMember)
-		assertEquals(39, accessor.propertySetterLine)
+		assertThat(accessor.propertySetterFile).isEqualTo("localClass.kt")
+		assertThat(accessor.propertySetterType).isEqualTo("LocalClass")
+		assertThat(accessor.propertySetterMember).isEqualTo("propertySetterMember")
+		assertThat(accessor.propertySetterLine).isEqualTo(39)
 	}
 }
