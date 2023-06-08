@@ -41,7 +41,7 @@ class ImplementationDetailTest {
 		val javaScript = jsFile.readText()
 		assertThat(javaScript)
 			.contains("""
-				|  protoOf(Greeter).i = function () {
+				|  protoOf(Greeter).h = function () {
 				|    println('Hello: main.kt, Greeter, sayHi, 17');
 				|  };
 				""".trimMargin())
