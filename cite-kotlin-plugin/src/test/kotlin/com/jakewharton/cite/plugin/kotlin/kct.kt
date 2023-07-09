@@ -1,17 +1,17 @@
 package com.jakewharton.cite.plugin.kotlin
 
+import assertk.Assert
+import assertk.assertThat
+import assertk.assertions.prop
+import assertk.fail
+import com.tschuchort.compiletesting.JvmCompilationResult
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.KotlinCompilation.ExitCode
-import com.tschuchort.compiletesting.KotlinCompilation.Result
 import com.tschuchort.compiletesting.SourceFile
 import org.jetbrains.kotlin.compiler.plugin.AbstractCliOption
 import org.jetbrains.kotlin.compiler.plugin.CommandLineProcessor
-import assertk.assertThat
-import assertk.Assert
-import assertk.assertions.prop
-import assertk.fail
 
-fun jvmCompile(vararg files: SourceFile): Assert<Result> {
+fun jvmCompile(vararg files: SourceFile): Assert<JvmCompilationResult> {
 	return KotlinCompilation()
 		.apply {
 			sources = files.toList()
@@ -28,16 +28,16 @@ fun jvmCompile(vararg files: SourceFile): Assert<Result> {
 		.let(::assertThat)
 }
 
-fun Assert<Result>.isSuccess() = given {
+fun Assert<JvmCompilationResult>.isSuccess() = given {
 	if (it.exitCode != ExitCode.OK) {
 		fail("${it.exitCode} ${it.messages}")
 	}
 }
 
-fun Assert<Result>.isCompilerFailure() = given {
+fun Assert<JvmCompilationResult>.isCompilerFailure() = given {
 	if (it.exitCode != ExitCode.COMPILATION_ERROR) {
 		fail("${it.exitCode} ${it.messages}")
 	}
 }
 
-val Assert<Result>.messages: Assert<String> get() = prop(Result::messages)
+val Assert<JvmCompilationResult>.messages: Assert<String> get() = prop(JvmCompilationResult::messages)
