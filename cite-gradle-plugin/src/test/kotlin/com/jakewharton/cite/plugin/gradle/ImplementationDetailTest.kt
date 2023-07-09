@@ -29,6 +29,7 @@ class ImplementationDetailTest {
 			.withProjectDir(fixtureDir)
 			.withDebug(true) // Run in-process.
 			.withArguments(
+				"clean",
 				"assemble",
 				"-PciteVersion=$CiteVersion",
 			)
