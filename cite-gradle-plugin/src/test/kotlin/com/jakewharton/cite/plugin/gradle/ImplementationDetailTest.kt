@@ -29,6 +29,7 @@ class ImplementationDetailTest {
 			.withProjectDir(fixtureDir)
 			.withDebug(true) // Run in-process.
 			.withArguments(
+				"clean",
 				"assemble",
 				"-PciteVersion=$CiteVersion",
 			)
@@ -62,11 +63,11 @@ class ImplementationDetailTest {
 	}
 
 	@Test fun native() {
-		val bitcodeFile = fixtureDir.resolve("build/dump/out.VerifyBitcode.ll")
+		val bitcodeFile = fixtureDir.resolve("build/dump/out.Codegen.ll")
 		val bitcode = bitcodeFile.readText()
 		assertThat(bitcode).all {
-			contains("call void @Kotlin_io_Console_println(%struct.ObjHeader* bitcast ({ %struct.ArrayHeader, [34 x i16] }* @739 to %struct.ObjHeader*))")
-			contains("@739 = internal unnamed_addr constant { %struct.ArrayHeader, [34 x i16] } { %struct.ArrayHeader { %struct.TypeInfo* bitcast (i8* getelementptr (i8, i8* bitcast (%struct.TypeInfo* @\"kclass:kotlin.String\" to i8*), i32 1) to %struct.TypeInfo*), i32 34 }, [34 x i16] [i16 72, i16 101, i16 108, i16 108, i16 111, i16 58, i16 32, i16 109, i16 97, i16 105, i16 110, i16 46, i16 107, i16 116, i16 44, i16 32, i16 71, i16 114, i16 101, i16 101, i16 116, i16 101, i16 114, i16 44, i16 32, i16 115, i16 97, i16 121, i16 72, i16 105, i16 44, i16 32, i16 49, i16 55] }")
+			contains("call void @\"kfun:kotlin.io#println(kotlin.Any?){}\"(%struct.ObjHeader* bitcast ({ %struct.ArrayHeader, [34 x i16] }* @745 to %struct.ObjHeader*))")
+			contains("@745 = internal unnamed_addr constant { %struct.ArrayHeader, [34 x i16] } { %struct.ArrayHeader { %struct.TypeInfo* bitcast (i8* getelementptr (i8, i8* bitcast (%struct.TypeInfo* @\"kclass:kotlin.String\" to i8*), i32 1) to %struct.TypeInfo*), i32 34 }, [34 x i16] [i16 72, i16 101, i16 108, i16 108, i16 111, i16 58, i16 32, i16 109, i16 97, i16 105, i16 110, i16 46, i16 107, i16 116, i16 44, i16 32, i16 71, i16 114, i16 101, i16 101, i16 116, i16 101, i16 114, i16 44, i16 32, i16 115, i16 97, i16 121, i16 72, i16 105, i16 44, i16 32, i16 49, i16 55] }")
 		}
 	}
 
