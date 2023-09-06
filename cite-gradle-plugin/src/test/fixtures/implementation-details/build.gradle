@@ -31,9 +31,15 @@ kotlin {
 
 	linuxX64 {
 		binaries.executable {
+			def dumpDir = new File(buildDir, "dump")
+
 			entryPoint = 'com.example.cite.main'
-			freeCompilerArgs += "-Xsave-llvm-ir-after=VerifyBitcode"
-			freeCompilerArgs += "-Xtemporary-files-dir=${new File(buildDir, "dump").absolutePath}"
+			freeCompilerArgs += "-Xsave-llvm-ir-after=Codegen"
+			freeCompilerArgs += "-Xsave-llvm-ir-directory=${dumpDir.absolutePath}"
+			linkTask.doFirst {
+				// https://youtrack.jetbrains.com/issue/KT-61721
+				dumpDir.mkdirs()
+			}
 		}
 	}
 }
