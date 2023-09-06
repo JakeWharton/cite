@@ -102,9 +102,9 @@ apply plugin: 'com.jakewharton.cite'
 Since Kotlin compiler plugins are an unstable API, certain versions of Cite only work with
 certain versions of Kotlin.
 
-| Kotlin        | Cite  |
-|---------------|-------|
-| 1.8.0 - 1.9.0 | 0.1.0 |
+| Kotlin         | Cite  |
+|----------------|-------|
+| 1.8.0 - 1.9.10 | 0.1.0 |
 
 Kotlin versions newer than those listed may be supported but have not been tested.
 
