@@ -62,7 +62,7 @@ buildscript {
     mavenCental()
   }
   dependencies {
-    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.1.0'
+    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.2.0'
   }
 }
 
@@ -86,7 +86,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.2.0-SNAPSHOT'
+    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.3.0-SNAPSHOT'
   }
 }
 
@@ -102,9 +102,9 @@ apply plugin: 'com.jakewharton.cite'
 Since Kotlin compiler plugins are an unstable API, certain versions of Cite only work with
 certain versions of Kotlin.
 
-| Kotlin         | Cite  |
-|----------------|-------|
-| 1.8.0 - 1.9.10 | 0.1.0 |
+| Kotlin         | Cite          |
+|----------------|---------------|
+| 1.8.0 - 1.9.10 | 0.1.0 - 0.2.0 |
 
 Kotlin versions newer than those listed may be supported but have not been tested.
 
