@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+
 buildscript {
 	dependencies {
 		classpath libs.kotlin.gradlePlugin
@@ -9,6 +12,12 @@ buildscript {
 	repositories {
 		mavenCentral()
 		gradlePluginPortal()
+	}
+}
+
+plugins.withType(NodeJsRootPlugin).configureEach {
+	kotlinNodeJs {
+		nodeVersion = '20.0.0'
 	}
 }
 
