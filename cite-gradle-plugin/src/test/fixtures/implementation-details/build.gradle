@@ -42,4 +42,9 @@ kotlin {
 			}
 		}
 	}
+
+	wasm {
+		nodejs()
+		binaries.executable()
+	}
 }
