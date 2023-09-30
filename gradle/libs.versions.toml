@@ -19,4 +19,4 @@ autoService-annotations = { module = "com.google.auto.service:auto-service-annot
 
 junit = "junit:junit:4.13.2"
 assertk = "com.willowtreeapps.assertk:assertk:0.27.0"
-asm-util = "org.ow2.asm:asm-util:9.5"
+asm-util = "org.ow2.asm:asm-util:9.6"
