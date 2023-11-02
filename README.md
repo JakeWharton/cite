@@ -104,7 +104,7 @@ certain versions of Kotlin.
 
 | Kotlin         | Cite          |
 |----------------|---------------|
-| 1.8.0 - 1.9.10 | 0.1.0 - 0.2.0 |
+| 1.8.0 - 1.9.20 | 0.1.0 - 0.2.0 |
 
 Kotlin versions newer than those listed may be supported but have not been tested.
 
