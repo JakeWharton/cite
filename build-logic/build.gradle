@@ -16,18 +16,14 @@ allprojects {
 		mavenCentral()
 	}
 
-	plugins.withId('java-base') {
-		java {
-			sourceCompatibility = JavaVersion.VERSION_1_8
-			targetCompatibility = JavaVersion.VERSION_1_8
-		}
-	}
+  tasks.withType(JavaCompile).configureEach { task ->
+    task.sourceCompatibility = '1.8'
+    task.targetCompatibility = '1.8'
+  }
 
-	plugins.withId('org.jetbrains.kotlin.jvm') {
-		kotlin {
-			jvmToolchain {
-				languageVersion.set(JavaLanguageVersion.of(8))
-			}
-		}
-	}
+  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile).configureEach { task ->
+    task.kotlinOptions {
+      jvmTarget = '1.8'
+    }
+  }
 }
