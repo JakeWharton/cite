@@ -4,13 +4,14 @@ apply plugin: 'com.vanniktech.maven.publish'
 
 kotlin {
 	explicitApi()
-}
 
-sourceSets.configureEach {
-	languageSettings {
-		optIn('org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi')
+	sourceSets.configureEach {
+		languageSettings {
+			optIn('org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi')
+		}
 	}
 }
+
 
 dependencies {
 	compileOnly libs.kotlin.compiler
