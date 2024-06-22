@@ -14,12 +14,6 @@ buildscript {
 	}
 }
 
-plugins.withType(NodeJsRootPlugin).configureEach {
-	kotlinNodeJs {
-		nodeVersion = '20.0.0'
-	}
-}
-
 allprojects {
 	version = property("VERSION_NAME") as String
 
