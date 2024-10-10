@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.9.25"
+kotlin = "2.0.21"
 auto-service="1.1.1"
 
 [libraries]
