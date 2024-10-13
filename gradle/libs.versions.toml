@@ -11,7 +11,7 @@ kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 kotlinCompilerTester = "dev.zacsweers.kctfork:core:0.3.2"
 
 buildConfigPlugin = "com.github.gmazzo:gradle-buildconfig-plugin:3.1.0"
-gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.29.0"
+gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.30.0"
 dokkaPlugin = "org.jetbrains.dokka:dokka-gradle-plugin:1.9.20"
 
 autoService-compiler = { module = "com.google.auto.service:auto-service", version.ref = "auto-service" }
