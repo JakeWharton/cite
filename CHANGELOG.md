@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+New:
+
+- Support usage with the `org.jetbrains.kotlin.android` plugin.
+
+Changed:
+
+- Legacy `wasm` target removed. `wasmJs` and `wasmWasi` targets added.
+
+
 ## [0.2.0] - 2023-09-14
 
 New:

@@ -11,7 +11,7 @@ kotlin {
 	macosX64()
 	mingwX64()
 
-	wasm().nodejs()
+	wasmJs().nodejs()
 
 	sourceSets {
 		commonTest {
