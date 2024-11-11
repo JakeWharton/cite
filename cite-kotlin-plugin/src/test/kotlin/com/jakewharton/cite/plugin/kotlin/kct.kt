@@ -22,7 +22,6 @@ fun jvmCompile(vararg files: SourceFile): Assert<JvmCompilationResult> {
 				override val pluginOptions get() = emptySet<AbstractCliOption>()
 			})
 			inheritClassPath = true
-			useIR = true
 		}
 		.compile()
 		.let(::assertThat)

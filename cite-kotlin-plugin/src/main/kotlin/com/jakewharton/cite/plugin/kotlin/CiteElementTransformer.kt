@@ -7,7 +7,7 @@ import org.jetbrains.kotlin.cli.common.messages.CompilerMessageLocation
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageSeverity.ERROR
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
 import org.jetbrains.kotlin.descriptors.DescriptorVisibilities
-import org.jetbrains.kotlin.ir.IrFileEntry
+import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.builders.declarations.buildFun
 import org.jetbrains.kotlin.ir.builders.irBlockBody
@@ -15,6 +15,7 @@ import org.jetbrains.kotlin.ir.builders.irReturn
 import org.jetbrains.kotlin.ir.declarations.IrAnonymousInitializer
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
+import org.jetbrains.kotlin.ir.declarations.IrDeclarationParent
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
@@ -48,23 +49,19 @@ internal class CiteElementTransformer(
 
 	private val function0 = pluginContext.referenceClass(ClassId(FqName("kotlin"), Name.identifier("Function0")))!!
 
-	private var visitingFile: IrFileEntry? = null
-	private var visitingType = ArrayDeque<String>()
-	private var visitingMember = ArrayDeque<String>()
+	private var visitingFile: IrFile? = null
+	private var visitingType = ArrayDeque<IrClass>()
+	private var visitingMember = ArrayDeque<IrElement>()
 
 	override fun visitFileNew(declaration: IrFile): IrFile {
-		visitingFile = declaration.fileEntry
+		visitingFile = declaration
 		val irFile = super.visitFileNew(declaration)
 		visitingFile = null
 		return irFile
 	}
 
 	override fun visitClassNew(declaration: IrClass): IrStatement {
-		visitingType += if (declaration.isEnumEntry) {
-			declaration.superTypes.first().getClass()!!.name.asString()
-		} else {
-			declaration.name.asString()
-		}
+		visitingType += declaration
 		val irStatement = super.visitClassNew(declaration)
 		visitingType.removeLast()
 		return irStatement
@@ -73,11 +70,7 @@ internal class CiteElementTransformer(
 	override fun visitFunctionNew(declaration: IrFunction): IrStatement {
 		val anonymous = declaration.name == SpecialNames.ANONYMOUS
 		if (!anonymous) {
-			visitingMember += if (declaration.isPropertyAccessor) {
-				(declaration as IrSimpleFunction).correspondingPropertySymbol!!.owner.name.asString()
-			} else {
-				declaration.name.asString()
-			}
+			visitingMember += declaration
 		}
 		val irStatement = super.visitFunctionNew(declaration)
 		if (!anonymous) {
@@ -87,7 +80,7 @@ internal class CiteElementTransformer(
 	}
 
 	override fun visitAnonymousInitializerNew(declaration: IrAnonymousInitializer): IrStatement {
-		visitingMember += "<init>"
+		visitingMember += declaration
 		val irStatement = super.visitAnonymousInitializerNew(declaration)
 		visitingMember.removeLast()
 		return irStatement
@@ -105,7 +98,7 @@ internal class CiteElementTransformer(
 					name = SpecialNames.ANONYMOUS
 					visibility = DescriptorVisibilities.LOCAL
 				}.apply {
-					parent = expression.symbol.owner.parent
+					parent = visitingMember.last() as IrDeclarationParent
 					body = DeclarationIrBuilder(pluginContext, symbol).irBlockBody {
 						+irReturn(replacement)
 					}
@@ -139,39 +132,52 @@ internal class CiteElementTransformer(
 			fileName -> {
 				val visitingFile = visitingFile
 				if (visitingFile != null) {
-					return source.swapConstString(visitingFile.name.substringAfterLast(File.separator))
-				} else {
-					source.reportError("No file detected! Report bug at https://github.com/JakeWharton/cite/issues/new")
+					val name = visitingFile.fileEntry.name.substringAfterLast(File.separator)
+					return source.swapConstString(name)
 				}
+				source.reportError("No file detected! Report bug at https://github.com/JakeWharton/cite/issues/new")
 			}
 			typeName -> {
 				val visitingType = visitingType.lastOrNull()
 				if (visitingType != null) {
-					return source.swapConstString(visitingType)
-				} else {
-					source.reportError("__TYPE__ may only be used within a type")
+					val name = if (visitingType.isEnumEntry) {
+						visitingType.superTypes.first().getClass()!!.name.asString()
+					} else {
+						visitingType.name.asString()
+					}
+					return source.swapConstString(name)
 				}
+				source.reportError("__TYPE__ may only be used within a type")
 			}
 			memberName -> {
 				val visitingMember = visitingMember.lastOrNull()
 				if (visitingMember != null) {
-					return source.swapConstString(visitingMember)
-				} else {
-					source.reportError("__MEMBER__ may only be used within a member")
+					val name = when (visitingMember) {
+						is IrFunction -> {
+							if (visitingMember.isPropertyAccessor) {
+								(visitingMember as IrSimpleFunction).correspondingPropertySymbol!!.owner.name.asString()
+							} else {
+								visitingMember.name.asString()
+							}
+						}
+						is IrAnonymousInitializer -> "<init>"
+						else -> throw RuntimeException("Unknown member $visitingMember")
+					}
+					return source.swapConstString(name)
 				}
+				source.reportError("__MEMBER__ may only be used within a member")
 			}
 			lineName -> {
 				val visitingFile = visitingFile
 				if (visitingFile != null) {
-					val rangeInfo = visitingFile.getSourceRangeInfo(
+					val rangeInfo = visitingFile.fileEntry.getSourceRangeInfo(
 						source.startOffset,
 						source.endOffset,
 					)
 					val line = rangeInfo.startLineNumber + 1 // Humans are one-based.
 					return source.swapConstInt(line)
-				} else {
-					source.reportError("No line number detected! Report bug at https://github.com/JakeWharton/cite/issues/new")
 				}
+				source.reportError("No line number detected! Report bug at https://github.com/JakeWharton/cite/issues/new")
 			}
 		}
 
@@ -188,12 +194,12 @@ internal class CiteElementTransformer(
 
 	private fun IrExpression.reportError(message: String) {
 		val location = visitingFile?.let { visitingFile ->
-			val rangeInfo = visitingFile.getSourceRangeInfo(
+			val rangeInfo = visitingFile.fileEntry.getSourceRangeInfo(
 				startOffset,
 				endOffset,
 			)
 			CompilerMessageLocation.create(
-				path = visitingFile.name,
+				path = visitingFile.fileEntry.name,
 				line = rangeInfo.startLineNumber + 1, // Location is one-based.
 				column = rangeInfo.startColumnNumber + 1, // Location is one-based.
 				lineContent = null,

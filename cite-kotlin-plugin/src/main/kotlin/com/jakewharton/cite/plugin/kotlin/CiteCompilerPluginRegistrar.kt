@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.config.CompilerConfiguration
 
 @AutoService(CompilerPluginRegistrar::class)
 public class CiteCompilerPluginRegistrar : CompilerPluginRegistrar() {
-	override val supportsK2: Boolean get() = false
+	override val supportsK2: Boolean get() = true
 
 	override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {
 		val messageCollector = configuration.get(
