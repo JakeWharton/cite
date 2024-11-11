@@ -8,7 +8,7 @@ kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ve
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 
-kotlinCompilerTester = "dev.zacsweers.kctfork:core:0.5.1"
+kotlinCompilerTester = "dev.zacsweers.kctfork:core:0.6.0"
 
 buildConfigPlugin = "com.github.gmazzo:gradle-buildconfig-plugin:3.1.0"
 gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.30.0"
