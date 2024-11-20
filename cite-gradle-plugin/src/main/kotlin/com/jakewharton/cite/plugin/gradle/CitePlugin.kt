@@ -8,7 +8,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilerPluginSupportPlugin
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet.Companion.COMMON_MAIN_SOURCE_SET_NAME
 import org.jetbrains.kotlin.gradle.plugin.SubpluginArtifact
 import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
@@ -22,21 +21,21 @@ public class CitePlugin : KotlinCompilerPluginSupportPlugin {
 			applied = true
 			val kotlin = target.extensions.getByType(KotlinMultiplatformExtension::class.java)
 			kotlin.sourceSets.getByName(COMMON_MAIN_SOURCE_SET_NAME).dependencies {
-				implementation(target.citeRuntimeDependency())
+				implementation(target.citeApiDependency())
 			}
 		}
 		target.plugins.withId("org.jetbrains.kotlin.jvm") {
 			applied = true
 			val kotlin = target.extensions.getByType(KotlinJvmProjectExtension::class.java)
 			kotlin.sourceSets.getByName(MAIN_SOURCE_SET_NAME).dependencies {
-				implementation(target.citeRuntimeDependency())
+				compileOnly(target.citeApiDependency())
 			}
 		}
 		target.plugins.withId("org.jetbrains.kotlin.android") {
 			applied = true
 			val kotlin = target.extensions.getByType(KotlinAndroidProjectExtension::class.java)
 			kotlin.sourceSets.getByName(MAIN_SOURCE_SET_NAME).dependencies {
-				implementation(target.citeRuntimeDependency())
+				compileOnly(target.citeApiDependency())
 			}
 		}
 		target.afterEvaluate {
@@ -46,15 +45,15 @@ public class CitePlugin : KotlinCompilerPluginSupportPlugin {
 		}
 	}
 
-	private fun Project.citeRuntimeDependency(): Any {
+	private fun Project.citeApiDependency(): Any {
 		// Indicates when the plugin is applied inside the Cite repo to Cite's own modules. This
 		// changes dependencies from being external Maven coordinates to internal project references.
 		val isInternalBuild = properties["com.jakewharton.cite.internal"].toString() == "true"
 
 		return if (isInternalBuild) {
-			project(":cite-runtime")
+			project(":cite-api")
 		} else {
-			"com.jakewharton.cite:cite-runtime:$CiteVersion"
+			"com.jakewharton.cite:cite-api:$CiteVersion"
 		}
 	}
 

@@ -40,9 +40,9 @@ if (rootProject.name == 'cite') {
 	apply plugin: 'com.vanniktech.maven.publish'
 
 	test {
+		dependsOn(':cite-api:publishAllPublicationsToTestMavenRepository')
 		dependsOn(':cite-gradle-plugin:publishAllPublicationsToTestMavenRepository')
 		dependsOn(':cite-kotlin-plugin:publishAllPublicationsToTestMavenRepository')
-		dependsOn(':cite-runtime:publishAllPublicationsToTestMavenRepository')
 
 		inputs.dir(file('src/test/fixtures'))
 	}

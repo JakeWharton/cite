@@ -3,6 +3,9 @@
 ## [Unreleased]
 [Unreleased]: https://github.com/JakeWharton/cite/compare/0.4.0...HEAD
 
+New:
+- Change runtime dependency to `compileOnly` on JVM and Android projects.
+- Renamed `cite-runtime` to `cite-api` since there's no actual runtime behavior.
 
 
 ## [0.4.0] - 2024-11-11

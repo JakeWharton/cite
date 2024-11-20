@@ -25,5 +25,5 @@ dependencies {
 
 	// For use in tests.
 	// TODO Use dedicated configuration and inject classpath as test system property.
-	testImplementation projects.citeRuntime
+	testImplementation projects.citeApi
 }
