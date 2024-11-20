@@ -41,7 +41,7 @@ public class CitePlugin : KotlinCompilerPluginSupportPlugin {
 		}
 		target.afterEvaluate {
 			check(applied) {
-				"The Cite plugin requires either the Kotlin multiplatform or JVM plugin"
+				"The Cite plugin requires either the Kotlin Multiplatform, JVM or Android plugin"
 			}
 		}
 	}
