@@ -1,8 +1,15 @@
 # Change Log
 
 ## [Unreleased]
-[Unreleased]: https://github.com/JakeWharton/cite/compare/0.5.0...HEAD
+[Unreleased]: https://github.com/JakeWharton/cite/compare/0.6.0...HEAD
 
+
+
+## [0.6.0] - 2024-11-26
+[0.6.0]: https://github.com/JakeWharton/cite/releases/tag/0.6.0
+
+New:
+- Add the runtime as `compileOnly` additionally to test compilations for JVM and Android projects.
 
 
 ## [0.5.0] - 2024-11-20
