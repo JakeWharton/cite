@@ -1,0 +1,36 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+
+buildscript {
+	dependencies {
+		classpath libs.kotlin.gradlePlugin
+		classpath "com.jakewharton.cite:cite-gradle-plugin:$citeVersion"
+	}
+	repositories {
+		mavenCentral()
+		maven {
+			url "file://${projectDir.absolutePath}/../../../../../build/testMaven"
+		}
+	}
+}
+
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'com.jakewharton.cite'
+
+repositories {
+	mavenCentral()
+	maven {
+		url "file://${projectDir.absolutePath}/../../../../../build/testMaven"
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	sourceCompatibility = "1.8"
+	targetCompatibility = "1.8"
+}
+
+tasks.withType(KotlinJvmCompile).configureEach {
+	compilerOptions {
+		jvmTarget = JvmTarget.JVM_1_8
+	}
+}

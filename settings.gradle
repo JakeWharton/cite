@@ -11,6 +11,6 @@ enableFeaturePreview('TYPESAFE_PROJECT_ACCESSORS')
 
 includeBuild('build-logic') {
 	dependencySubstitution {
-		substitute module('com.jakewharton.cite:cite-gradle-plugin') using project(':cite-gradle-plugin')
+		substitute module('com.jakewharton.cite:cite-gradle-plugin') using project(':gradle-plugin')
 	}
 }

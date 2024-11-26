@@ -46,4 +46,8 @@ if (rootProject.name == 'cite') {
 
 		inputs.dir(file('src/test/fixtures'))
 	}
+} else {
+	// Move the build directory when included in build-logic so as to not poison the real build.
+	// If we don't there's a chance incorrect build config values (configured above) will be used.
+	layout.buildDirectory = new File(rootDir, "build/gradle-plugin")
 }
