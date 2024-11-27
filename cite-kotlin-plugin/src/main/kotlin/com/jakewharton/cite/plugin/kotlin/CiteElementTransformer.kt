@@ -127,7 +127,7 @@ internal class CiteElementTransformer(
 		return super.visitCall(expression) as IrCall
 	}
 
-	private fun maybeReplaceCitation(source: IrExpression, owner: IrSimpleFunction): IrConst<*>? {
+	private fun maybeReplaceCitation(source: IrExpression, owner: IrSimpleFunction): IrConst? {
 		when (owner.kotlinFqName) {
 			fileName -> {
 				val visitingFile = visitingFile
@@ -184,11 +184,11 @@ internal class CiteElementTransformer(
 		return null
 	}
 
-	private fun IrExpression.swapConstString(value: String): IrConst<String> {
+	private fun IrExpression.swapConstString(value: String): IrConst {
 		return IrConstImpl.string(startOffset, endOffset, pluginContext.irBuiltIns.stringType, value)
 	}
 
-	private fun IrExpression.swapConstInt(value: Int): IrConst<Int> {
+	private fun IrExpression.swapConstInt(value: Int): IrConst {
 		return IrConstImpl.int(startOffset, endOffset, pluginContext.irBuiltIns.intType, value)
 	}
 
