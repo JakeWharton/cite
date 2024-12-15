@@ -36,6 +36,7 @@ internal class CiteElementTransformer(
 	private val messageCollector: MessageCollector,
 	private val pluginContext: IrPluginContext,
 ) : IrElementTransformerVoidWithContext() {
+	private val moduleName = FqName("com.jakewharton.cite.<get-__MODULE__>")
 	private val fileName = FqName("com.jakewharton.cite.<get-__FILE__>")
 	private val typeName = FqName("com.jakewharton.cite.<get-__TYPE__>")
 	private val memberName = FqName("com.jakewharton.cite.<get-__MEMBER__>")
@@ -86,6 +87,11 @@ internal class CiteElementTransformer(
 
 	private fun maybeReplaceCitation(source: IrExpression, owner: IrSimpleFunction): IrConst? {
 		when (owner.kotlinFqName) {
+			moduleName -> {
+				val name = currentFile.module.name.asStringStripSpecialMarkers()
+				return source.swapConstString(name)
+			}
+
 			fileName -> {
 				val name = currentFile.fileEntry.name.substringAfterLast(File.separator)
 				return source.swapConstString(name)
