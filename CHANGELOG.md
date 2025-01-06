@@ -1,8 +1,15 @@
 # Change Log
 
 ## [Unreleased]
-[Unreleased]: https://github.com/JakeWharton/cite/compare/0.6.0...HEAD
+[Unreleased]: https://github.com/JakeWharton/cite/compare/0.6.1...HEAD
 
+
+
+## [0.6.1] - 2025-01-06
+[0.6.1]: https://github.com/JakeWharton/cite/releases/tag/0.6.1
+
+Fix:
+- Change Gradle plugin to be more compatible with forthcoming project isolation feature.
 
 
 ## [0.6.0] - 2024-11-26

@@ -62,7 +62,7 @@ buildscript {
     mavenCental()
   }
   dependencies {
-    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.6.0'
+    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.6.1'
   }
 }
 
@@ -104,7 +104,7 @@ certain versions of Kotlin.
 
 | Kotlin         | Cite          |
 |----------------|---------------|
-| 2.0.21 - 2.1.0 | 0.4.0 - 0.6.0 |
+| 2.0.21 - 2.1.0 | 0.4.0 - 0.6.1 |
 | 1.8.0 - 1.9.25 | 0.1.0 - 0.3.0 |
 
 Kotlin versions newer than those listed may be supported but have not been tested.
