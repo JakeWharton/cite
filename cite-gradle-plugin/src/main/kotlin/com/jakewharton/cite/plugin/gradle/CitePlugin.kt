@@ -58,7 +58,9 @@ public class CitePlugin : KotlinCompilerPluginSupportPlugin {
 	private fun Project.citeApiDependency(): Any {
 		// Indicates when the plugin is applied inside the Cite repo to Cite's own modules. This
 		// changes dependencies from being external Maven coordinates to internal project references.
-		val isInternalBuild = properties["com.jakewharton.cite.internal"].toString() == "true"
+		val isInternalBuild = providers.gradleProperty("com.jakewharton.cite.internal")
+			.getOrElse("false")
+			.toBoolean()
 
 		return if (isInternalBuild) {
 			project(":cite-api")
