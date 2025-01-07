@@ -3,6 +3,9 @@
 	"extends": [
 		"config:base"
 	],
+	"ignorePresets": [
+		"workarounds:javaLTSVersions"
+	],
 	"customManagers": [
 		{
 			"customType": "regex",
