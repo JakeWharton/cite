@@ -15,6 +15,7 @@
 			"matchStrings": [
 				"(?<currentValue>.*)\\n"
 			],
+			"extractVersion": "^(?<version>\\d+)",
 			"datasourceTemplate": "java-version",
 			"depNameTemplate": "java"
 		}
