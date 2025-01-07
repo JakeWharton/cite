@@ -1,26 +1,23 @@
 {
-	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": [
-		"config:base"
+	$schema: 'https://docs.renovatebot.com/renovate-schema.json',
+	extends: [
+		'config:recommended',
 	],
-	"ignorePresets": [
-		// Ensure we get the latest version and are not pinned to old versions.
-		"workarounds:javaLTSVersions",
+	ignorePresets: [
+		'workarounds:javaLTSVersions',
 	],
-	"customManagers": [
-		// Update .java-version file with the latest JDK version.
+	customManagers: [
 		{
-			"customType": "regex",
-			"fileMatch": [
-				"^\\.java-version$"
+			customType: 'regex',
+			fileMatch: [
+				'^\\.java-version$',
 			],
-			"matchStrings": [
-				"(?<currentValue>.*)\\n"
+			matchStrings: [
+				'(?<currentValue>.*)\\n',
 			],
-			"datasourceTemplate": "java-version",
-			"depNameTemplate": "java",
-			// Only write the major version.
-			"extractVersionTemplate": "^(?<version>\\d+)",
+			datasourceTemplate: 'java-version',
+			depNameTemplate: 'java',
+			extractVersionTemplate: '^(?<version>\\d+)',
 		},
 	],
 }
