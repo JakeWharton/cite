@@ -4,9 +4,11 @@
 		"config:base"
 	],
 	"ignorePresets": [
-		"workarounds:javaLTSVersions"
+		// Ensure we get the latest version and are not pinned to old versions.
+		"workarounds:javaLTSVersions",
 	],
 	"customManagers": [
+		// Update .java-version file with the latest JDK version.
 		{
 			"customType": "regex",
 			"fileMatch": [
@@ -15,9 +17,10 @@
 			"matchStrings": [
 				"(?<currentValue>.*)\\n"
 			],
-			"extractVersionTemplate": "^(?<version>\\d+)",
 			"datasourceTemplate": "java-version",
-			"depNameTemplate": "java"
-		}
-	]
+			"depNameTemplate": "java",
+			// Only write the major version.
+			"extractVersionTemplate": "^(?<version>\\d+)",
+		},
+	],
 }
