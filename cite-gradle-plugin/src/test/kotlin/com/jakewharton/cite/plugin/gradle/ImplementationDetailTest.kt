@@ -66,8 +66,8 @@ class ImplementationDetailTest {
 		val bitcodeFile = fixtureDir.resolve("build/dump/out.Codegen.ll")
 		val bitcode = bitcodeFile.readText()
 		assertThat(bitcode).all {
-			contains("call void @\"kfun:kotlin.io#println(kotlin.Any?){}\"(ptr @758)")
-			contains("@758 = internal unnamed_addr constant { %struct.ArrayHeader, [34 x i16] } { %struct.ArrayHeader { ptr getelementptr inbounds (i8, ptr @\"kclass:kotlin.String\", i32 1), i32 34 }, [34 x i16] [i16 72, i16 101, i16 108, i16 108, i16 111, i16 58, i16 32, i16 109, i16 97, i16 105, i16 110, i16 46, i16 107, i16 116, i16 44, i16 32, i16 71, i16 114, i16 101, i16 101, i16 116, i16 101, i16 114, i16 44, i16 32, i16 115, i16 97, i16 121, i16 72, i16 105, i16 44, i16 32, i16 49, i16 55] }")
+			contains("call void @\"kfun:kotlin.io#println(kotlin.Any?){}\"(ptr @760)")
+			contains("@760 = internal unnamed_addr constant { ptr, i32, i32, i16, [68 x i8] } { ptr getelementptr inbounds (i8, ptr @\"kclass:kotlin.String\", i32 1), i32 35, i32 -1646021194, i16 0, [68 x i8] c\"H\\00e\\00l\\00l\\00o\\00:\\00 \\00m\\00a\\00i\\00n\\00.\\00k\\00t\\00,\\00 \\00G\\00r\\00e\\00e\\00t\\00e\\00r\\00,\\00 \\00s\\00a\\00y\\00H\\00i\\00,\\00 \\001\\007\\00\" }")
 		}
 	}
 
