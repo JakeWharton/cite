@@ -28,11 +28,11 @@ Greeter.prototype.h = function () {
   println('Hello: main.kt, Greeter, sayHi, 16');
 };
 ```
-Native (as LLVM IR, and you might need your ASCII table):
+Native (as LLVM IR):
 ```
-@792 = … { …, [34 x i16] [i16 72, i16 101, i16 108, i16 108, i16 111, i16 58, i16 32, i16 109, i16 97, i16 105, i16 110, i16 46, i16 107, i16 116, i16 44, i16 32, i16 71, i16 114, i16 101, i16 101, i16 116, i16 101, i16 114, i16 44, i16 32, i16 115, i16 97, i16 121, i16 72, i16 105, i16 44, i16 32, i16 49, i16 54] }
+@760 = … { …, [68 x i8] c"H\00e\00l\00l\00o\00:\00 \00m\00a\00i\00n\00.\00k\00t\00,\00 \00G\00r\00e\00e\00t\00e\00r\00,\00 \00s\00a\00y\00H\00i\00,\00 \001\007\00" }
  ⋮
-call void @Kotlin_io_Console_println(… ({ %struct.ArrayHeader, [34 x i16] }* @792 …)), !dbg !12017
+call void @"kfun:kotlin.io#println(kotlin.Any?){}"(ptr @760)
 ```
 
 
