@@ -6,7 +6,7 @@ For example, given:
 ```kotlin
 object Greeter {
   fun sayHi() {
-    println("Hello: $__FILE__, $__TYPE__, $__MEMBER_, $__LINE__")
+    println("Hello: $__FILE__, $__TYPE__, $__MEMBER__, $__LINE__")
   }
 }
 ```
