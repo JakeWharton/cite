@@ -74,7 +74,7 @@ The runtime dependency will be added as an `implementation` dependency automatic
 Never add the runtime dependency yourself, as use without the plugin will not work.
 
 <details>
-<summary>Snapshots of the development version are available in Sonatype's snapshots repository.</summary>
+<summary>Snapshots of the development version are available in the Central Portal Snapshots repository.</summary>
 <p>
 
 ```groovy
@@ -82,7 +82,7 @@ buildscript {
   repositories {
     mavenCentral()
     maven {
-      url 'https://oss.sonatype.org/content/repositories/snapshots/'
+      url 'https://central.sonatype.com/repository/maven-snapshots/'
     }
   }
   dependencies {

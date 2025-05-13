@@ -3,6 +3,8 @@
 ## [Unreleased]
 [Unreleased]: https://github.com/JakeWharton/cite/compare/0.6.1...HEAD
 
+Changed:
+- In-development snapshots are now published to the Central Portal Snapshots repository at https://central.sonatype.com/repository/maven-snapshots/.
 
 
 ## [0.6.1] - 2025-01-06
