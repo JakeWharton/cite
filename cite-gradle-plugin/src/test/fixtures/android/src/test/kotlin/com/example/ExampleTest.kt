@@ -1,7 +1,11 @@
 package com.example
 
 import com.jakewharton.cite.__FILE__
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
-fun main() {
-	println(__FILE__)
+class ExampleTest {
+	@Test fun file() {
+		assertEquals("ExampleTest.kt", __FILE__)
+	}
 }
