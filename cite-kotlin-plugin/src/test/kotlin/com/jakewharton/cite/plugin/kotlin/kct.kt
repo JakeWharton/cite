@@ -20,12 +20,6 @@ fun jvmCompile(vararg files: SourceFile): Assert<JvmCompilationResult> {
 		.let(::assertThat)
 }
 
-fun Assert<JvmCompilationResult>.isSuccess() = given {
-	if (it.exitCode != ExitCode.OK) {
-		fail("${it.exitCode} ${it.messages}")
-	}
-}
-
 fun Assert<JvmCompilationResult>.isCompilerFailure() = given {
 	if (it.exitCode != ExitCode.COMPILATION_ERROR) {
 		fail("${it.exitCode} ${it.messages}")
