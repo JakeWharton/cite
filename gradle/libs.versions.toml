@@ -13,7 +13,7 @@ android-gradlePlugin = "com.android.tools.build:gradle:8.5.0"
 kotlinCompilerTester = "dev.zacsweers.kctfork:core:0.8.0"
 
 buildConfigPlugin = "com.github.gmazzo:gradle-buildconfig-plugin:3.1.0"
-gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.33.0"
+gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.34.0"
 dokkaPlugin = "org.jetbrains.dokka:dokka-gradle-plugin:2.0.0"
 
 autoService-compiler = { module = "com.google.auto.service:auto-service", version.ref = "auto-service" }
