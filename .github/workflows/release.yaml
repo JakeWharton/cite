@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version-file: .java-version
+          java-version-file: .github/workflows/.java-version
 
       - run: ./gradlew publish
         env:
@@ -33,4 +33,3 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           body: ${{ steps.release_notes.outputs.release_notes }}
-          discussionCategory: Announcements
