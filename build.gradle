@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
-
 buildscript {
 	dependencies {
 		classpath libs.kotlin.gradlePlugin
@@ -11,6 +9,8 @@ buildscript {
 	repositories {
 		mavenCentral()
 		gradlePluginPortal()
+		// We don't strictly need this, but Renovate does to see AGP which is used in fixtures.
+		google()
 	}
 }
 
