@@ -1,5 +1,6 @@
 package com.jakewharton.cite.plugin.gradle
 
+import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.SourceSet.MAIN_SOURCE_SET_NAME
@@ -7,6 +8,7 @@ import org.gradle.api.tasks.SourceSet.TEST_SOURCE_SET_NAME
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinBaseApiPlugin
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilerPluginSupportPlugin
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet.Companion.COMMON_MAIN_SOURCE_SET_NAME
@@ -48,6 +50,16 @@ public class CitePlugin : KotlinCompilerPluginSupportPlugin {
 				compileOnly(target.citeApiDependency())
 			}
 		}
+		target.plugins.withId("com.android.base") {
+			if (target.plugins.hasPlugin(KotlinBaseApiPlugin::class.java)) {
+				applied = true
+				val android = target.extensions.getByType(CommonExtension::class.java)
+				android.sourceSets.configureEach { sourceSet ->
+					target.dependencies.add(sourceSet.compileOnlyConfigurationName, target.citeApiDependency())
+				}
+			}
+		}
+
 		target.afterEvaluate {
 			check(applied) {
 				"The Cite plugin requires either the Kotlin Multiplatform, JVM, or Android plugin"

@@ -1,0 +1,23 @@
+buildscript {
+	dependencies {
+		classpath libs.android.gradlePlugin
+		classpath "com.jakewharton.cite:cite-gradle-plugin:$citeVersion"
+	}
+	repositories {
+		mavenCentral()
+		google()
+		maven {
+			url "file://${rootDir.absolutePath}/../../../../../build/testMaven"
+		}
+	}
+}
+
+allprojects {
+	repositories {
+		mavenCentral()
+		google()
+		maven {
+			url "file://${rootDir.absolutePath}/../../../../../build/testMaven"
+		}
+	}
+}

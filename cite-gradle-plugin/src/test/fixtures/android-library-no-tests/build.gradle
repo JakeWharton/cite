@@ -1,0 +1,43 @@
+import com.android.build.api.variant.HasAndroidTestBuilder
+import com.android.build.api.variant.HasUnitTestBuilder
+
+buildscript {
+	dependencies {
+		classpath libs.android.gradlePlugin
+		classpath "com.jakewharton.cite:cite-gradle-plugin:$citeVersion"
+	}
+	repositories {
+		mavenCentral()
+		google()
+		maven {
+			url "file://${rootDir.absolutePath}/../../../../../build/testMaven"
+		}
+	}
+}
+
+apply plugin: 'com.jakewharton.cite'
+apply plugin: 'com.android.library'
+
+androidComponents {
+	beforeVariants(selector().all()) {
+		(it as HasAndroidTestBuilder).enableAndroidTest = false
+		(it as HasUnitTestBuilder).enableUnitTest = false
+	}
+}
+
+android {
+	namespace = 'com.example'
+	compileSdk = 35
+
+	defaultConfig {
+		minSdk = 26
+	}
+}
+
+repositories {
+	mavenCentral()
+	google()
+	maven {
+		url "file://${rootDir.absolutePath}/../../../../../build/testMaven"
+	}
+}

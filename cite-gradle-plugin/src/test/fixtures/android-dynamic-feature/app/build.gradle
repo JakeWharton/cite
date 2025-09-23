@@ -1,0 +1,12 @@
+apply plugin: 'com.android.application'
+
+android {
+	namespace = 'com.example'
+	compileSdk = 35
+
+	dynamicFeatures = [':feature']
+
+	defaultConfig {
+		minSdk = 26
+	}
+}

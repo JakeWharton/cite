@@ -29,6 +29,7 @@ kotlin {
 
 dependencies {
 	compileOnly libs.kotlin.gradlePlugin
+	compileOnly libs.android.gradlePlugin
 
 	testImplementation gradleTestKit()
 	testImplementation libs.junit
@@ -50,4 +51,15 @@ if (rootProject.name == 'cite') {
 	// Move the build directory when included in build-logic so as to not poison the real build.
 	// If we don't there's a chance incorrect build config values (configured above) will be used.
 	layout.buildDirectory = new File(rootDir, "build/gradle-plugin")
+}
+
+tasks.withType(JavaCompile).configureEach { task ->
+	task.sourceCompatibility = '11'
+	task.targetCompatibility = '11'
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile).configureEach { task ->
+	task.kotlinOptions {
+		jvmTarget = '11'
+	}
 }

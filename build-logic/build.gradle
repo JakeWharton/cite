@@ -14,16 +14,17 @@ allprojects {
 
 	repositories {
 		mavenCentral()
+		google()
 	}
 
   tasks.withType(JavaCompile).configureEach { task ->
-    task.sourceCompatibility = '1.8'
-    task.targetCompatibility = '1.8'
+    task.sourceCompatibility = '11'
+    task.targetCompatibility = '11'
   }
 
   tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile).configureEach { task ->
     task.kotlinOptions {
-      jvmTarget = '1.8'
+      jvmTarget = '11'
     }
   }
 }
