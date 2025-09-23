@@ -5,8 +5,24 @@ import org.gradle.testkit.runner.GradleRunner
 import org.junit.Test
 
 class FixtureCompilationTest {
-	@Test fun android() {
-		createRunner("android", "assembleAndroidTest").build()
+	@Test fun androidApplication() {
+		createRunner("android-application", "assembleAndroidTest").build()
+	}
+
+	@Test fun androidDynamicFeature() {
+		createRunner("android-dynamic-feature", "assembleAndroidTest").build()
+	}
+
+	@Test fun androidLibrary() {
+		createRunner("android-library", "assembleAndroidTest").build()
+	}
+
+	@Test fun androidLibraryNoTests() {
+		createRunner("android-library-no-tests", "assembleAndroidTest").build()
+	}
+
+	@Test fun androidTest() {
+		createRunner("android-test", "assembleAndroidTest").build()
 	}
 
 	@Test fun jvm() {

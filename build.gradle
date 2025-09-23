@@ -9,8 +9,6 @@ buildscript {
 	repositories {
 		mavenCentral()
 		gradlePluginPortal()
-		// We don't strictly need this, but Renovate does to see AGP which is used in fixtures.
-		google()
 	}
 }
 
@@ -19,6 +17,7 @@ allprojects {
 
 	repositories {
 		mavenCentral()
+		google()
 	}
 
 	configurations.configureEach {

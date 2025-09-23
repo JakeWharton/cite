@@ -5,7 +5,7 @@ buildscript {
 	}
 	repositories {
 		maven {
-			url "file://${projectDir.absolutePath}/../../../../../build/testMaven"
+			url "file://${rootDir.absolutePath}/../../../../../build/testMaven"
 		}
 		mavenCentral()
 	}
@@ -13,13 +13,13 @@ buildscript {
 
 repositories {
 	maven {
-		url "file://${projectDir.absolutePath}/../../../../../build/testMaven"
+		url "file://${rootDir.absolutePath}/../../../../../build/testMaven"
 	}
 	mavenCentral()
 }
 
-apply plugin: 'org.jetbrains.kotlin.multiplatform'
 apply plugin: 'com.jakewharton.cite'
+apply plugin: 'org.jetbrains.kotlin.multiplatform'
 
 kotlin {
 	js {

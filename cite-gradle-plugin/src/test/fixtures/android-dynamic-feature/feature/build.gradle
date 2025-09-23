@@ -1,0 +1,16 @@
+apply plugin: 'com.jakewharton.cite'
+apply plugin: 'com.android.dynamic-feature'
+
+android {
+	namespace = 'com.example.feature'
+	compileSdk = 35
+
+	defaultConfig {
+		minSdk = 26
+	}
+}
+
+dependencies {
+	implementation project(':app')
+	testImplementation libs.junit
+}

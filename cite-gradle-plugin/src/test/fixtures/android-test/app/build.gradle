@@ -1,0 +1,10 @@
+apply plugin: 'com.android.application'
+
+android {
+	namespace = 'com.example'
+	compileSdk = 35
+
+	defaultConfig {
+		minSdk = 26
+	}
+}

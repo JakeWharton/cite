@@ -3,6 +3,9 @@
 ## [Unreleased]
 [Unreleased]: https://github.com/JakeWharton/cite/compare/0.6.1...HEAD
 
+Fix:
+- Add support for Android Gradle plugin 9.0's new built-in Kotlin support.
+
 Changed:
 - In-development snapshots are now published to the Central Portal Snapshots repository at https://central.sonatype.com/repository/maven-snapshots/.
 
