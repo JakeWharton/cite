@@ -1,7 +1,13 @@
 # Change Log
 
 ## [Unreleased]
-[Unreleased]: https://github.com/JakeWharton/cite/compare/0.6.1...HEAD
+[Unreleased]: https://github.com/JakeWharton/cite/compare/0.7.0...HEAD
+
+Nothing yet!
+
+
+## [0.7.0] - 2025-09-23
+[0.7.0]: https://github.com/JakeWharton/cite/releases/tag/0.7.0
 
 Fix:
 - Add support for Android Gradle plugin 9.0's new built-in Kotlin support.
