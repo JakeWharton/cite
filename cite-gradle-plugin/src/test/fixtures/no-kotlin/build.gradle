@@ -1,0 +1,18 @@
+buildscript {
+	dependencies {
+		classpath "com.jakewharton.cite:cite-gradle-plugin:$citeVersion"
+	}
+	repositories {
+		mavenCentral()
+		maven {
+			url "file://${rootDir.absolutePath}/../../../../../build/testMaven"
+		}
+	}
+}
+
+apply plugin: 'com.jakewharton.cite'
+
+tasks.withType(JavaCompile).configureEach {
+	sourceCompatibility = "1.8"
+	targetCompatibility = "1.8"
+}

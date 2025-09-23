@@ -1,10 +1,17 @@
 package com.jakewharton.cite.plugin.gradle
 
+import assertk.assertThat
+import assertk.assertions.contains
 import java.io.File
 import org.gradle.testkit.runner.GradleRunner
 import org.junit.Test
 
 class FixtureCompilationTest {
+	@Test fun noKotlinFails() {
+		val result = createRunner("no-kotlin").buildAndFail()
+		assertThat(result.output).contains("No suitable Kotlin configuration was found")
+	}
+
 	@Test fun androidApplication() {
 		createRunner("android-application", "assembleAndroidTest").build()
 	}
