@@ -1,5 +1,4 @@
 apply plugin: 'org.jetbrains.kotlin.jvm'
-apply plugin: 'org.jetbrains.kotlin.kapt'
 apply plugin: 'com.vanniktech.maven.publish'
 
 kotlin {
@@ -15,8 +14,6 @@ kotlin {
 
 dependencies {
 	compileOnly libs.kotlin.compiler
-	compileOnly libs.autoService.annotations
-	kapt libs.autoService.compiler
 
 	testImplementation libs.kotlin.stdlib
 	testImplementation libs.kotlin.test
