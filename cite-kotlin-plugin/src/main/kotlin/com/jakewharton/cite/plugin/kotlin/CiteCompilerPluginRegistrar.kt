@@ -8,6 +8,7 @@ import org.jetbrains.kotlin.config.CompilerConfiguration
 
 public class CiteCompilerPluginRegistrar : CompilerPluginRegistrar() {
 	override val supportsK2: Boolean get() = true
+	override val pluginId: String get() = "com.jakewharton.cite"
 
 	override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {
 		val messageCollector = configuration.get(
