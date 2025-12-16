@@ -17,4 +17,4 @@ dokkaPlugin = "org.jetbrains.dokka:dokka-gradle-plugin:2.1.0"
 
 junit = "junit:junit:4.13.2"
 assertk = "com.willowtreeapps.assertk:assertk:0.28.1"
-asm-util = "org.ow2.asm:asm-util:9.9"
+asm-util = "org.ow2.asm:asm-util:9.9.1"
