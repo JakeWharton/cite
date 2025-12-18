@@ -1,9 +1,12 @@
+import tapmoc.Severity
+
 buildscript {
 	dependencies {
 		classpath libs.kotlin.gradlePlugin
 		classpath libs.buildConfigPlugin
 		classpath libs.gradleMavenPublishPlugin
 		classpath libs.dokkaPlugin
+		classpath libs.compatPlugin
 		classpath 'com.jakewharton.cite:cite-gradle-plugin'
 	}
 	repositories {
@@ -28,15 +31,20 @@ allprojects {
 		}
 	}
 
-  tasks.withType(JavaCompile).configureEach { task ->
-    task.sourceCompatibility = '1.8'
-    task.targetCompatibility = '1.8'
+	tasks.withType(Test).configureEach {
+		testLogging {
+			if (System.getenv("CI") == "true") {
+				events = ["failed", "skipped", "passed"]
+			}
+			exceptionFormat "full"
+		}
   }
 
-  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile).configureEach { task ->
-    task.kotlinOptions {
-      jvmTarget = '1.8'
-    }
+	plugins.withId('com.gradleup.tapmoc') {
+		tapmoc {
+			checkApiDependencies(Severity.ERROR)
+			checkRuntimeDependencies(Severity.ERROR)
+		}
   }
 
 	plugins.withId('maven-publish') {
