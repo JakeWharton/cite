@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.3.0-RC2"
+kotlin = "2.3.0"
 
 [libraries]
 kotlin-compiler = { module = "org.jetbrains.kotlin:kotlin-compiler", version.ref = "kotlin" }
@@ -7,9 +7,9 @@ kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ve
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 
-android-gradlePlugin = "com.android.tools.build:gradle:9.0.0-beta03"
+android-gradlePlugin = "com.android.tools.build:gradle:9.0.0-beta05"
 
-kotlinCompilerTester = "dev.zacsweers.kctfork:core:0.11.1"
+kotlinCompilerTester = "dev.zacsweers.kctfork:core:0.12.0"
 
 buildConfigPlugin = "com.github.gmazzo.buildconfig:plugin:6.0.6"
 gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.35.0"
@@ -19,4 +19,4 @@ compatPlugin = "com.gradleup.tapmoc:tapmoc-gradle-plugin:0.2.0"
 junit = "junit:junit:4.13.2"
 assertk = "com.willowtreeapps.assertk:assertk:0.28.1"
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.20"
-asm-util = "org.ow2.asm:asm-util:9.9"
+asm-util = "org.ow2.asm:asm-util:9.9.1"
