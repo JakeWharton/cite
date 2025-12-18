@@ -6,6 +6,8 @@ import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
 import java.io.File
 import org.gradle.testkit.runner.GradleRunner
+import org.gradle.util.GradleVersion
+import org.junit.Assume.assumeTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -14,28 +16,38 @@ class FixtureCompilationTest(
 	@param:TestParameter(LATEST_GRADLE_VERSION, MINIMUM_GRADLE_VERSION)
 	private val gradleVersion: String,
 ) {
+	private fun supportsAgp9(): Boolean {
+		return gradleVersion == LATEST_GRADLE_VERSION ||
+			GradleVersion.version(gradleVersion) >= GradleVersion.version("9.1")
+	}
+
 	@Test fun noKotlinFails() {
 		val result = createRunner("no-kotlin").buildAndFail()
 		assertThat(result.output).contains("No suitable Kotlin configuration was found")
 	}
 
 	@Test fun androidApplication() {
+		assumeTrue(supportsAgp9())
 		createRunner("android-application", "assembleAndroidTest").build()
 	}
 
 	@Test fun androidDynamicFeature() {
+		assumeTrue(supportsAgp9())
 		createRunner("android-dynamic-feature", "assembleAndroidTest").build()
 	}
 
 	@Test fun androidLibrary() {
+		assumeTrue(supportsAgp9())
 		createRunner("android-library", "assembleAndroidTest").build()
 	}
 
 	@Test fun androidLibraryNoTests() {
+		assumeTrue(supportsAgp9())
 		createRunner("android-library-no-tests", "assembleAndroidTest").build()
 	}
 
 	@Test fun androidTest() {
+		assumeTrue(supportsAgp9())
 		createRunner("android-test", "assembleAndroidTest").build()
 	}
 
