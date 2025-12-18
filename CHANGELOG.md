@@ -1,9 +1,19 @@
 # Change Log
 
 ## [Unreleased]
-[Unreleased]: https://github.com/JakeWharton/cite/compare/0.7.0...HEAD
+[Unreleased]: https://github.com/JakeWharton/cite/compare/0.8.0...HEAD
 
 Nothing yet!
+
+
+## [0.8.0] - 2025-12-18
+[0.8.0]: https://github.com/JakeWharton/cite/releases/tag/0.8.0
+
+New:
+- Support for Kotlin 2.3.0.
+
+Changed:
+- The minimum-supported Gradle version is now 9.0.
 
 
 ## [0.7.0] - 2025-09-23
