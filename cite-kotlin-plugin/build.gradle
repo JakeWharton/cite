@@ -11,7 +11,6 @@ kotlin {
 	}
 }
 
-
 dependencies {
 	compileOnly libs.kotlin.compiler
 
@@ -23,4 +22,10 @@ dependencies {
 	// For use in tests.
 	// TODO Use dedicated configuration and inject classpath as test system property.
 	testImplementation projects.citeApi
+}
+
+apply plugin: 'com.gradleup.tapmoc'
+tapmoc {
+	java(8)
+	kotlin('2.3.0')
 }

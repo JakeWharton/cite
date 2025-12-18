@@ -13,16 +13,6 @@ gradlePlugin {
 	}
 }
 
-buildConfig {
-	useKotlinOutput {
-		internalVisibility = true
-		topLevelConstants = true
-	}
-
-	packageName('com.jakewharton.cite.plugin.gradle')
-	buildConfigField("String", "CiteVersion", "\"$version\"")
-}
-
 kotlin {
 	explicitApi()
 }
@@ -31,9 +21,9 @@ dependencies {
 	compileOnly libs.kotlin.gradlePlugin
 	compileOnly libs.android.gradlePlugin
 
-	testImplementation gradleTestKit()
 	testImplementation libs.junit
 	testImplementation libs.assertk
+	testImplementation libs.testParameterInjector
 	testImplementation libs.asm.util
 }
 
@@ -53,13 +43,34 @@ if (rootProject.name == 'cite') {
 	layout.buildDirectory = new File(rootDir, "build/gradle-plugin")
 }
 
-tasks.withType(JavaCompile).configureEach { task ->
-	task.sourceCompatibility = '11'
-	task.targetCompatibility = '11'
+// HEY! If you update the minimum-supported Gradle version check to see if the Kotlin language version or
+// Java targets below can be bumped. See https://docs.gradle.org/current/userguide/compatibility.html.
+def minimumGradleVersion = '9.0'
+configurations.apiElements {
+	attributes {
+		attribute(
+			GradlePluginApiVersion.GRADLE_PLUGIN_API_VERSION_ATTRIBUTE,
+			objects.named(GradlePluginApiVersion, minimumGradleVersion),
+		)
+	}
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile).configureEach { task ->
-	task.kotlinOptions {
-		jvmTarget = '11'
+apply plugin: 'com.gradleup.tapmoc'
+tapmoc {
+	java(17)
+	kotlin('2.2.0')
+}
+
+buildConfig {
+	useKotlinOutput {
+		packageName = 'com.jakewharton.cite.plugin.gradle'
+		internalVisibility = true
+		topLevelConstants = true
+	}
+
+	buildConfigField("String", "CiteVersion", "\"$version\"")
+
+	sourceSets.getByName('test') {
+		buildConfigField(String, 'MINIMUM_GRADLE_VERSION', minimumGradleVersion)
 	}
 }

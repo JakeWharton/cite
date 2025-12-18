@@ -48,3 +48,9 @@ kotlin {
 		}
 	}
 }
+
+apply plugin: 'com.gradleup.tapmoc'
+tapmoc {
+	java(8)
+	kotlin('2.0.0')
+}

@@ -2,6 +2,7 @@ buildscript {
 	dependencies {
 		classpath libs.kotlin.gradlePlugin
 		classpath libs.buildConfigPlugin
+		classpath libs.compatPlugin
 	}
 	repositories {
 		mavenCentral()
@@ -16,15 +17,4 @@ allprojects {
 		mavenCentral()
 		google()
 	}
-
-  tasks.withType(JavaCompile).configureEach { task ->
-    task.sourceCompatibility = '11'
-    task.targetCompatibility = '11'
-  }
-
-  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile).configureEach { task ->
-    task.kotlinOptions {
-      jvmTarget = '11'
-    }
-  }
 }
