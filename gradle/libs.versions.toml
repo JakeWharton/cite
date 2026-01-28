@@ -18,5 +18,5 @@ compatPlugin = "com.gradleup.tapmoc:tapmoc-gradle-plugin:0.3.2"
 
 junit = "junit:junit:4.13.2"
 assertk = "com.willowtreeapps.assertk:assertk:0.28.1"
-testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.20"
+testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.21"
 asm-util = "org.ow2.asm:asm-util:9.9.1"
