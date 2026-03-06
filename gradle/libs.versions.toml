@@ -11,7 +11,7 @@ android-gradlePlugin = "com.android.tools.build:gradle:9.1.0"
 
 kotlinCompilerTester = "dev.zacsweers.kctfork:core:0.12.1"
 
-buildConfigPlugin = "com.github.gmazzo.buildconfig:plugin:6.0.8"
+buildConfigPlugin = "com.github.gmazzo.buildconfig:plugin:6.0.9"
 gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.36.0"
 dokkaPlugin = "org.jetbrains.dokka:dokka-gradle-plugin:2.1.0"
 compatPlugin = "com.gradleup.tapmoc:tapmoc-gradle-plugin:0.4.0"
