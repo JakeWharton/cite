@@ -46,10 +46,10 @@ class EnumTest {
 	}
 
 	@Test fun subtypeInitializer() {
-		assertThat(AnEnum.Normal.instanceInitializerFile).isEqualTo("enum.kt")
-		assertThat(AnEnum.Normal.instanceInitializerType).isEqualTo("AnEnum")
-		assertThat(AnEnum.Normal.instanceInitializerMember).isEqualTo("<init>")
-		assertThat(AnEnum.Normal.instanceInitializerLine).isEqualTo(100)
+		assertThat(AnEnum.Subtype.instanceInitializerFile).isEqualTo("enum.kt")
+		assertThat(AnEnum.Subtype.instanceInitializerType).isEqualTo("AnEnum")
+		assertThat(AnEnum.Subtype.instanceInitializerMember).isEqualTo("<init>")
+		assertThat(AnEnum.Subtype.instanceInitializerLine).isEqualTo(51)
 	}
 
 	@Test fun subtypeFun() {
