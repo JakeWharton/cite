@@ -42,7 +42,7 @@ class ImplementationDetailTest {
 		val javaScript = jsFile.readText()
 		assertThat(javaScript)
 			.contains("""
-				|  protoOf(Greeter).z = function () {
+				|  protoOf(Greeter).x = function () {
 				|    println('Hello: main.kt, Greeter, sayHi, 17');
 				|  };
 				""".trimMargin())
@@ -66,8 +66,8 @@ class ImplementationDetailTest {
 		val bitcodeFile = fixtureDir.resolve("build/dump/out.Codegen.ll")
 		val bitcode = bitcodeFile.readText()
 		assertThat(bitcode).all {
-			contains("call void @\"kfun:kotlin.io#println(kotlin.Any?){}\"(ptr @777)")
-			contains("@777 = internal unnamed_addr constant { ptr, i32, i32, i16, [68 x i8] } { ptr getelementptr (i8, ptr @\"kclass:kotlin.String\", i32 1), i32 35, i32 -1646021194, i16 0, [68 x i8] c\"H\\00e\\00l\\00l\\00o\\00:\\00 \\00m\\00a\\00i\\00n\\00.\\00k\\00t\\00,\\00 \\00G\\00r\\00e\\00e\\00t\\00e\\00r\\00,\\00 \\00s\\00a\\00y\\00H\\00i\\00,\\00 \\001\\007\\00\" }")
+			contains("@781 = internal unnamed_addr constant { ptr, i32, i32, i16, [68 x i8] } { ptr getelementptr (i8, ptr @\"kclass:kotlin.String\", i32 1), i32 35, i32 -1646021194, i16 0, [68 x i8] c\"H\\00e\\00l\\00l\\00o\\00:\\00 \\00m\\00a\\00i\\00n\\00.\\00k\\00t\\00,\\00 \\00G\\00r\\00e\\00e\\00t\\00e\\00r\\00,\\00 \\00s\\00a\\00y\\00H\\00i\\00,\\00 \\001\\007\\00\" }")
+			contains("call void @\"kfun:kotlin.io#println(kotlin.Any?){}\"(ptr @781)")
 		}
 	}
 
