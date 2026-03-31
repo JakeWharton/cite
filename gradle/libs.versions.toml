@@ -14,7 +14,7 @@ kotlinCompilerTester = "dev.zacsweers.kctfork:core:0.12.1"
 buildConfigPlugin = "com.github.gmazzo.buildconfig:plugin:6.0.9"
 gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.36.0"
 dokkaPlugin = "org.jetbrains.dokka:dokka-gradle-plugin:2.2.0"
-compatPlugin = "com.gradleup.tapmoc:tapmoc-gradle-plugin:0.4.0"
+compatPlugin = "com.gradleup.tapmoc:tapmoc-gradle-plugin:0.4.1"
 
 junit = "junit:junit:4.13.2"
 assertk = "com.willowtreeapps.assertk:assertk:0.28.1"
