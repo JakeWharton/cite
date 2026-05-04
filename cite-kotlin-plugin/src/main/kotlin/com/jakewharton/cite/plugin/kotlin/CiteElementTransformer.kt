@@ -46,15 +46,7 @@ internal class CiteElementTransformer(
 
 	private val function0 = pluginContext.irBuiltIns.functionN(0)
 
-	private var visitingType = ArrayDeque<IrClass>()
 	private var visitingMember = ArrayDeque<IrElement>()
-
-	override fun visitClassNew(declaration: IrClass): IrStatement {
-		visitingType += declaration
-		val irStatement = super.visitClassNew(declaration)
-		visitingType.removeLast()
-		return irStatement
-	}
 
 	override fun visitFunctionNew(declaration: IrFunction): IrStatement {
 		val anonymous = declaration.name == SpecialNames.ANONYMOUS
@@ -124,8 +116,8 @@ internal class CiteElementTransformer(
 				return source.swapConstString(name)
 			}
 			typeName -> {
-				val visitingType = visitingType.lastOrNull()
-				if (visitingType != null) {
+				currentClass?.let {
+					val visitingType = it.irElement as IrClass
 					val name = if (visitingType.isEnumEntry) {
 						visitingType.superTypes.first().getClass()!!.name.asString()
 					} else {
