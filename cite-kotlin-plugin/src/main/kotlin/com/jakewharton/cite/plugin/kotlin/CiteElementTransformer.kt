@@ -32,9 +32,7 @@ import org.jetbrains.kotlin.ir.util.isEnumEntry
 import org.jetbrains.kotlin.ir.util.isPropertyAccessor
 import org.jetbrains.kotlin.ir.util.kotlinFqName
 import org.jetbrains.kotlin.konan.file.File
-import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
-import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.SpecialNames
 
 internal class CiteElementTransformer(
@@ -46,7 +44,7 @@ internal class CiteElementTransformer(
 	private val memberName = FqName("com.jakewharton.cite.<get-__MEMBER__>")
 	private val lineName = FqName("com.jakewharton.cite.<get-__LINE__>")
 
-	private val function0 = pluginContext.referenceClass(ClassId(FqName("kotlin"), Name.identifier("Function0")))!!
+	private val function0 = pluginContext.irBuiltIns.functionN(0)
 
 	private var visitingType = ArrayDeque<IrClass>()
 	private var visitingMember = ArrayDeque<IrElement>()
