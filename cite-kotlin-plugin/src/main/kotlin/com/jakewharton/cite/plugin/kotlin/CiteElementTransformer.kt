@@ -16,7 +16,6 @@ import org.jetbrains.kotlin.ir.declarations.IrAnonymousInitializer
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationParent
-import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.expressions.IrCall
@@ -49,16 +48,8 @@ internal class CiteElementTransformer(
 
 	private val function0 = pluginContext.referenceClass(ClassId(FqName("kotlin"), Name.identifier("Function0")))!!
 
-	private var visitingFile: IrFile? = null
 	private var visitingType = ArrayDeque<IrClass>()
 	private var visitingMember = ArrayDeque<IrElement>()
-
-	override fun visitFileNew(declaration: IrFile): IrFile {
-		visitingFile = declaration
-		val irFile = super.visitFileNew(declaration)
-		visitingFile = null
-		return irFile
-	}
 
 	override fun visitClassNew(declaration: IrClass): IrStatement {
 		visitingType += declaration
@@ -130,12 +121,9 @@ internal class CiteElementTransformer(
 	private fun maybeReplaceCitation(source: IrExpression, owner: IrSimpleFunction): IrConst? {
 		when (owner.kotlinFqName) {
 			fileName -> {
-				val visitingFile = visitingFile
-				if (visitingFile != null) {
-					val name = visitingFile.fileEntry.name.substringAfterLast(File.separator)
-					return source.swapConstString(name)
-				}
-				source.reportError("No file detected! Report bug at https://github.com/JakeWharton/cite/issues/new")
+				val visitingFile = currentFile
+				val name = visitingFile.fileEntry.name.substringAfterLast(File.separator)
+				return source.swapConstString(name)
 			}
 			typeName -> {
 				val visitingType = visitingType.lastOrNull()
@@ -168,16 +156,12 @@ internal class CiteElementTransformer(
 				source.reportError("__MEMBER__ may only be used within a member")
 			}
 			lineName -> {
-				val visitingFile = visitingFile
-				if (visitingFile != null) {
-					val rangeInfo = visitingFile.fileEntry.getSourceRangeInfo(
-						source.startOffset,
-						source.endOffset,
-					)
-					val line = rangeInfo.startLineNumber + 1 // Humans are one-based.
-					return source.swapConstInt(line)
-				}
-				source.reportError("No line number detected! Report bug at https://github.com/JakeWharton/cite/issues/new")
+				val rangeInfo = currentFile.fileEntry.getSourceRangeInfo(
+					source.startOffset,
+					source.endOffset,
+				)
+				val line = rangeInfo.startLineNumber + 1 // Humans are one-based.
+				return source.swapConstInt(line)
 			}
 		}
 
@@ -193,18 +177,16 @@ internal class CiteElementTransformer(
 	}
 
 	private fun IrExpression.reportError(message: String) {
-		val location = visitingFile?.let { visitingFile ->
-			val rangeInfo = visitingFile.fileEntry.getSourceRangeInfo(
-				startOffset,
-				endOffset,
-			)
-			CompilerMessageLocation.create(
-				path = visitingFile.fileEntry.name,
-				line = rangeInfo.startLineNumber + 1, // Location is one-based.
-				column = rangeInfo.startColumnNumber + 1, // Location is one-based.
-				lineContent = null,
-			)
-		}
+		val rangeInfo = currentFile.fileEntry.getSourceRangeInfo(
+			startOffset,
+			endOffset,
+		)
+		val location = CompilerMessageLocation.create(
+			path = currentFile.fileEntry.name,
+			line = rangeInfo.startLineNumber + 1, // Location is one-based.
+			column = rangeInfo.startColumnNumber + 1, // Location is one-based.
+			lineContent = null,
+		)
 		messageCollector.report(ERROR, message, location)
 	}
 }
