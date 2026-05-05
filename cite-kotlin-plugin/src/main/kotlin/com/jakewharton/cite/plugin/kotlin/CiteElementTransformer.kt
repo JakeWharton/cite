@@ -7,15 +7,12 @@ import org.jetbrains.kotlin.cli.common.messages.CompilerMessageLocation
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageSeverity.ERROR
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
 import org.jetbrains.kotlin.descriptors.DescriptorVisibilities
-import org.jetbrains.kotlin.ir.IrElement
-import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.builders.declarations.buildFun
 import org.jetbrains.kotlin.ir.builders.irBlockBody
 import org.jetbrains.kotlin.ir.builders.irReturn
 import org.jetbrains.kotlin.ir.declarations.IrAnonymousInitializer
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
-import org.jetbrains.kotlin.ir.declarations.IrDeclarationParent
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.expressions.IrCall
@@ -46,27 +43,6 @@ internal class CiteElementTransformer(
 
 	private val function0 = pluginContext.irBuiltIns.functionN(0)
 
-	private var visitingMember = ArrayDeque<IrElement>()
-
-	override fun visitFunctionNew(declaration: IrFunction): IrStatement {
-		val anonymous = declaration.name == SpecialNames.ANONYMOUS
-		if (!anonymous) {
-			visitingMember += declaration
-		}
-		val irStatement = super.visitFunctionNew(declaration)
-		if (!anonymous) {
-			visitingMember.removeLast()
-		}
-		return irStatement
-	}
-
-	override fun visitAnonymousInitializerNew(declaration: IrAnonymousInitializer): IrStatement {
-		visitingMember += declaration
-		val irStatement = super.visitAnonymousInitializerNew(declaration)
-		visitingMember.removeLast()
-		return irStatement
-	}
-
 	override fun visitPropertyReference(expression: IrPropertyReference): IrExpression {
 		expression.getter?.let { getter ->
 			val owner = getter.owner
@@ -79,7 +55,7 @@ internal class CiteElementTransformer(
 					name = SpecialNames.ANONYMOUS
 					visibility = DescriptorVisibilities.LOCAL
 				}.apply {
-					parent = visitingMember.last() as IrDeclarationParent
+					parent = currentDeclarationParent!!
 					body = DeclarationIrBuilder(pluginContext, symbol).irBlockBody {
 						+irReturn(replacement)
 					}
@@ -111,8 +87,7 @@ internal class CiteElementTransformer(
 	private fun maybeReplaceCitation(source: IrExpression, owner: IrSimpleFunction): IrConst? {
 		when (owner.kotlinFqName) {
 			fileName -> {
-				val visitingFile = currentFile
-				val name = visitingFile.fileEntry.name.substringAfterLast(File.separator)
+				val name = currentFile.fileEntry.name.substringAfterLast(File.separator)
 				return source.swapConstString(name)
 			}
 			typeName -> {
@@ -128,9 +103,12 @@ internal class CiteElementTransformer(
 				source.reportError("__TYPE__ may only be used within a type")
 			}
 			memberName -> {
-				val visitingMember = visitingMember.lastOrNull()
-				if (visitingMember != null) {
-					val name = when (visitingMember) {
+				val currentMember = allScopes.lastOrNull {
+					(it.irElement is IrFunction && (it.irElement as IrFunction).name != SpecialNames.ANONYMOUS) ||
+						it.irElement is IrAnonymousInitializer
+				}
+				currentMember?.let {
+					val name = when (val visitingMember = it.irElement) {
 						is IrFunction -> {
 							if (visitingMember.isPropertyAccessor) {
 								(visitingMember as IrSimpleFunction).correspondingPropertySymbol!!.owner.name.asString()
