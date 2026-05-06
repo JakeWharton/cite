@@ -3,7 +3,8 @@
 ## [Unreleased]
 [Unreleased]: https://github.com/JakeWharton/cite/compare/0.8.0...HEAD
 
-Nothing yet!
+New:
+- Add `__FQ_NAME__` which returns a fully-qualified type name or the file facade name.
 
 
 ## [0.8.0] - 2025-12-18

@@ -66,6 +66,66 @@ class CiteCompilerTest {
 		}
 	}
 
+	@Test fun fqTypeTopLevelFunctionFails() {
+		val source = SourceFile.kotlin(
+			"main.kt",
+			"""
+			import com.jakewharton.cite.__FQ_TYPE__
+			fun noType() = __FQ_TYPE__
+			""",
+		)
+		jvmCompile(source).all {
+			isCompilerFailure()
+			messages.contains("main.kt:2:16 __FQ_TYPE__ may only be used within a type")
+		}
+	}
+
+	@Test fun fqTypeTopLevelPropertyInitializerFails() {
+		val source = SourceFile.kotlin(
+			"main.kt",
+			"""
+			import com.jakewharton.cite.__FQ_TYPE__
+			val noType = __FQ_TYPE__
+			""",
+		)
+		jvmCompile(source).all {
+			isCompilerFailure()
+			messages.contains("main.kt:2:14 __FQ_TYPE__ may only be used within a type")
+		}
+	}
+
+	@Test fun fqTypeTopLevelPropertyGetterFails() {
+		val source = SourceFile.kotlin(
+			"main.kt",
+			"""
+			import com.jakewharton.cite.__FQ_TYPE__
+			val noType get() = __FQ_TYPE__
+			""",
+		)
+		jvmCompile(source).all {
+			isCompilerFailure()
+			messages.contains("main.kt:2:20 __FQ_TYPE__ may only be used within a type")
+		}
+	}
+
+	@Test fun fqTypeTopLevelPropertySetterFails() {
+		val source = SourceFile.kotlin(
+			"main.kt",
+			"""
+			import com.jakewharton.cite.__FQ_TYPE__
+			var noType: String = ""
+				set(_) {
+					field = __FQ_TYPE__
+				}
+			""",
+		)
+		jvmCompile(source).all {
+			isCompilerFailure()
+			messages
+				.contains("main.kt:4:11 __FQ_TYPE__ may only be used within a type")
+		}
+	}
+
 	@Test fun memberTopLevelPropertyInitializerFails() {
 		val source = SourceFile.kotlin(
 			"main.kt",

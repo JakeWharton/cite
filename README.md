@@ -40,15 +40,16 @@ call void @"kfun:kotlin.io#println(kotlin.Any?){}"(ptr @760)
 
 Five properties are provided:
 
-| Property     | Type     | Description                                                      | Example   |
-|--------------|----------|------------------------------------------------------------------|-----------|
-| `__MODULE__` | `String` | Name of the Kotlin module.                                       | "example" |
-| `__FILE__`   | `String` | Filename of the source file.                                     | "main.kt" |
-| `__TYPE__`   | `String` | Name of the nearest enclosing class, object, interface, or enum. | "Greeter" |
-| `__MEMBER__` | `String` | Name of the nearest enclosing function or property body.         | "sayHi"   |
-| `__LINE__`   | `Int`    | One-based line number of this property access.                   | 16        |
+| Property      | Type     | Description                                                        | Example               |
+|---------------|----------|--------------------------------------------------------------------|-----------------------|
+| `__MODULE__`  | `String` | Name of the Kotlin module.                                         | "example"             |
+| `__FILE__`    | `String` | Filename of the source file.                                       | "main.kt"             |
+| `__TYPE__`    | `String` | Name of the nearest enclosing class, object, interface, or enum.   | "Greeter"             |
+| `__FQ_TYPE__` | `String` | Fully-qualified name of the nearest enclosing type or file facade. | "com.example.Greeter" |
+| `__MEMBER__`  | `String` | Name of the nearest enclosing function or property body.           | "sayHi"               |
+| `__LINE__`    | `Int`    | One-based line number of this property access.                     | 16                    |
 
-Use of a property in a location without an associated enclosing type is an error.
+Using type properties in locations without an associated enclosing type is an error.
 For example, using `__TYPE__` in a top-level function will fail to compile.
 
 
