@@ -13,7 +13,7 @@ public class CiteCompilerPluginRegistrar : CompilerPluginRegistrar() {
 	override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {
 		val messageCollector = configuration.get(
 			CommonConfigurationKeys.MESSAGE_COLLECTOR_KEY,
-			MessageCollector.NONE
+			MessageCollector.NONE,
 		)
 		IrGenerationExtension.registerExtension(CiteIrGenerationExtension(messageCollector))
 	}

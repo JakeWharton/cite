@@ -65,7 +65,7 @@ internal class CiteElementTransformer(
 					endOffset = expression.endOffset,
 					type = function0.typeWith(listOf(replacement.type)),
 					origin = IrStatementOrigin.LAMBDA,
-					function = function
+					function = function,
 				)
 			}
 		}
@@ -90,44 +90,49 @@ internal class CiteElementTransformer(
 				val name = currentFile.fileEntry.name.substringAfterLast(File.separator)
 				return source.swapConstString(name)
 			}
+
 			typeName -> {
-				currentClass?.let {
-					val visitingType = it.irElement as IrClass
-					val name = if (visitingType.isEnumEntry) {
-						visitingType.superTypes.first().getClass()!!.name.asString()
-					} else {
-						visitingType.name.asString()
+				allScopes.reversed()
+					.firstNotNullOfOrNull { scope ->
+						when (val element = scope.irElement) {
+							is IrClass -> {
+								if (element.isEnumEntry) {
+									element.superTypes.first().getClass()!!.name.asString()
+								} else {
+									element.name.asString()
+								}
+							}
+
+							else -> null
+						}
+					}?.let { name ->
+						return source.swapConstString(name)
 					}
-					return source.swapConstString(name)
-				}
 				source.reportError("__TYPE__ may only be used within a type")
 			}
+
 			memberName -> {
-				val currentMember = allScopes.lastOrNull {
-					(it.irElement is IrFunction && (it.irElement as IrFunction).name != SpecialNames.ANONYMOUS) ||
-						it.irElement is IrAnonymousInitializer
-				}
-				currentMember?.let {
-					val name = when (val visitingMember = it.irElement) {
-						is IrFunction -> {
-							if (visitingMember.isPropertyAccessor) {
-								(visitingMember as IrSimpleFunction).correspondingPropertySymbol!!.owner.name.asString()
-							} else {
-								visitingMember.name.asString()
+				allScopes.reversed()
+					.firstNotNullOfOrNull { scope ->
+						when (val element = scope.irElement) {
+							is IrAnonymousInitializer -> "<init>"
+							is IrSimpleFunction if (element.correspondingPropertySymbol != null) -> {
+								element.correspondingPropertySymbol!!.owner.name.asString()
 							}
+
+							is IrFunction if (element.name != SpecialNames.ANONYMOUS) -> element.name.asString()
+							else -> null
 						}
-						is IrAnonymousInitializer -> "<init>"
-						else -> throw RuntimeException("Unknown member $visitingMember")
 					}
-					return source.swapConstString(name)
-				}
+					?.let { name ->
+						return source.swapConstString(name)
+					}
 				source.reportError("__MEMBER__ may only be used within a member")
 			}
+
 			lineName -> {
-				val rangeInfo = currentFile.fileEntry.getSourceRangeInfo(
-					source.startOffset,
-					source.endOffset,
-				)
+				val rangeInfo = currentFile.fileEntry
+					.getSourceRangeInfo(source.startOffset, source.endOffset)
 				val line = rangeInfo.startLineNumber + 1 // Humans are one-based.
 				return source.swapConstInt(line)
 			}
