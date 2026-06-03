@@ -38,10 +38,11 @@ call void @"kfun:kotlin.io#println(kotlin.Any?){}"(ptr @760)
 
 ## API
 
-Four properties are provided:
+Five properties are provided:
 
 | Property     | Type     | Description                                                      | Example   |
 |--------------|----------|------------------------------------------------------------------|-----------|
+| `__MODULE__` | `String` | Name of the Kotlin module.                                       | "example" |
 | `__FILE__`   | `String` | Filename of the source file.                                     | "main.kt" |
 | `__TYPE__`   | `String` | Name of the nearest enclosing class, object, interface, or enum. | "Greeter" |
 | `__MEMBER__` | `String` | Name of the nearest enclosing function or property body.         | "sayHi"   |

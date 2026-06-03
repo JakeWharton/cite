@@ -6,6 +6,10 @@ import kotlin.jvm.JvmName
 import kotlin.jvm.JvmSynthetic
 
 @get:JvmSynthetic
+@get:JvmName("__MODULE__")
+public val __MODULE__: String get() = intrinsicFailure()
+
+@get:JvmSynthetic
 @get:JvmName("__FILE__")
 public val __FILE__: String get() = intrinsicFailure()
 
