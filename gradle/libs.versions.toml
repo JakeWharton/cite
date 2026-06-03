@@ -9,7 +9,7 @@ kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 
 android-gradlePlugin = "com.android.tools.build:gradle:9.2.1"
 
-kotlinCompilerTester = "dev.zacsweers.kctfork:core:0.12.1"
+kotlinCompilerTester = "dev.zacsweers.kctfork:core:0.13.0"
 
 buildConfigPlugin = "com.github.gmazzo.buildconfig:plugin:6.0.10"
 gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.36.0"
