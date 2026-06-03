@@ -1,9 +1,17 @@
 # Change Log
 
 ## [Unreleased]
-[Unreleased]: https://github.com/JakeWharton/cite/compare/0.8.0...HEAD
+[Unreleased]: https://github.com/JakeWharton/cite/compare/0.9.0...HEAD
+
+Nothing yet!
+
+
+## [0.9.0] - 2026-06-03
+[0.9.0]: https://github.com/JakeWharton/cite/releases/tag/0.9.0
 
 New:
+- Support for Kotlin 2.4.0.
+- Add `__MODULE__` which returns the name or the Kotlin module (as specified by the `--module-name` argument to the compiler).
 - Add `__FQ_NAME__` which returns a fully-qualified type name or the file facade name.
 
 
