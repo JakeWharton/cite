@@ -22,6 +22,7 @@ import org.jetbrains.kotlin.ir.expressions.IrPropertyReference
 import org.jetbrains.kotlin.ir.expressions.IrStatementOrigin
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrFunctionExpressionImpl
+import org.jetbrains.kotlin.ir.types.classFqName
 import org.jetbrains.kotlin.ir.types.getClass
 import org.jetbrains.kotlin.ir.types.typeWith
 import org.jetbrains.kotlin.ir.util.SYNTHETIC_OFFSET
@@ -38,6 +39,7 @@ internal class CiteElementTransformer(
 ) : IrElementTransformerVoidWithContext() {
 	private val moduleName = FqName("com.jakewharton.cite.<get-__MODULE__>")
 	private val fileName = FqName("com.jakewharton.cite.<get-__FILE__>")
+	private val fqTypeName = FqName("com.jakewharton.cite.<get-__FQ_TYPE__>")
 	private val typeName = FqName("com.jakewharton.cite.<get-__TYPE__>")
 	private val memberName = FqName("com.jakewharton.cite.<get-__MEMBER__>")
 	private val lineName = FqName("com.jakewharton.cite.<get-__LINE__>")
@@ -97,18 +99,36 @@ internal class CiteElementTransformer(
 				return source.swapConstString(name)
 			}
 
+			fqTypeName -> {
+				allScopes.reversed()
+					.firstNotNullOfOrNull { scope ->
+						when (val element = scope.irElement) {
+							is IrClass if (element.isEnumEntry) -> {
+								element.superTypes.first().classFqName!!.toString()
+							}
+							is IrClass if (!element.isCompanion) -> {
+								element.kotlinFqName.toString()
+							}
+							else -> {
+								null
+							}
+						}
+					}?.let { name ->
+						return source.swapConstString(name)
+					}
+				source.reportError("__FQ_TYPE__ may only be used within a type")
+			}
+
 			typeName -> {
 				allScopes.reversed()
 					.firstNotNullOfOrNull { scope ->
 						when (val element = scope.irElement) {
-							is IrClass -> {
-								if (element.isEnumEntry) {
-									element.superTypes.first().getClass()!!.name.asString()
-								} else {
-									element.name.asString()
-								}
+							is IrClass if (element.isEnumEntry) -> {
+								element.superTypes.first().getClass()!!.name.asString()
 							}
-
+							is IrClass if (!element.isCompanion) -> {
+								element.name.asString()
+							}
 							else -> null
 						}
 					}?.let { name ->

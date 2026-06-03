@@ -1,21 +1,25 @@
 package com.example.cite
 
 import com.jakewharton.cite.__FILE__
+import com.jakewharton.cite.__FQ_TYPE__
 import com.jakewharton.cite.__LINE__
 import com.jakewharton.cite.__MEMBER__
 import com.jakewharton.cite.__TYPE__
 
 object AnObject {
 	fun funFile() = __FILE__
+	fun funFqType() = __FQ_TYPE__
 	fun funType() = __TYPE__
 	fun funMember() = __MEMBER__
 	fun funLine() = __LINE__
 
 	val propertyInitializerFile = __FILE__
+	val propertyInitializerFqType = __FQ_TYPE__
 	val propertyInitializerType = __TYPE__
 	val propertyInitializerLine = __LINE__
 
 	val propertyGetterFile get() = __FILE__
+	val propertyGetterFqType get() = __FQ_TYPE__
 	val propertyGetterType get() = __TYPE__
 	val propertyGetterMember get() = __MEMBER__
 	val propertyGetterLine get() = __LINE__
@@ -23,6 +27,10 @@ object AnObject {
 	var propertySetterFile: String = ""
 		set(_) {
 			field = __FILE__
+		}
+	var propertySetterFqType: String = ""
+		set(_) {
+			field = __FQ_TYPE__
 		}
 	var propertySetterType: String = ""
 		set(_) {
@@ -38,11 +46,13 @@ object AnObject {
 		}
 
 	val instanceInitializerFile: String
+	val instanceInitializerFqType: String
 	val instanceInitializerType: String
 	val instanceInitializerMember: String
 	val instanceInitializerLine: Int
 	init {
 		instanceInitializerFile = __FILE__
+		instanceInitializerFqType = __FQ_TYPE__
 		instanceInitializerType = __TYPE__
 		instanceInitializerMember = __MEMBER__
 		instanceInitializerLine = __LINE__

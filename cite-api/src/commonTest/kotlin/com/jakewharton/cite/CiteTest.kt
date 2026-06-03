@@ -12,6 +12,12 @@ class CiteTest {
 			.isEqualTo("Property reference was not replaced by compiler. Did you apply Cite plugin?")
 	}
 
+	@Test fun fqTypeThrowsByDefault() {
+		assertFailure { __FQ_TYPE__ }
+			.message()
+			.isEqualTo("Property reference was not replaced by compiler. Did you apply Cite plugin?")
+	}
+
 	@Test fun typeThrowsByDefault() {
 		assertFailure { __TYPE__ }
 			.message()
