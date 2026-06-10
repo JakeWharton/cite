@@ -64,7 +64,7 @@ buildscript {
     mavenCental()
   }
   dependencies {
-    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.8.0'
+    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.9.0'
   }
 }
 
@@ -88,7 +88,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.9.0-SNAPSHOT'
+    classpath 'com.jakewharton.cite:cite-gradle-plugin:0.10.0-SNAPSHOT'
   }
 }
 
