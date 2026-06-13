@@ -38,7 +38,7 @@ call void @"kfun:kotlin.io#println(kotlin.Any?){}"(ptr @760)
 
 ## API
 
-Five properties are provided:
+Six properties are provided:
 
 | Property      | Type     | Description                                                        | Example               |
 |---------------|----------|--------------------------------------------------------------------|-----------------------|
