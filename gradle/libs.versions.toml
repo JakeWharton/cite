@@ -7,7 +7,7 @@ kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ve
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 
-android-gradlePlugin = "com.android.tools.build:gradle:9.3.1"
+android-gradlePlugin = "com.android.tools.build:gradle:9.3.2"
 
 kotlinCompilerTester = "dev.zacsweers.kctfork:core:0.13.0"
 
