@@ -7,6 +7,11 @@ kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ve
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 
+# If you update the minimum-supported Gradle version check to see if our plugin's Kotlin language
+# version or Java targets can be bumped.
+# See https://docs.gradle.org/current/userguide/compatibility.html.
+gradle-minimum = "org.gradle.experimental:gradle-public-api:9.0.0"
+
 android-gradlePlugin = "com.android.tools.build:gradle:9.3.2"
 
 kotlinCompilerTester = "dev.zacsweers.kctfork:core:0.13.0"
