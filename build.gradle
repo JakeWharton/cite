@@ -21,6 +21,18 @@ allprojects {
 	repositories {
 		mavenCentral()
 		google()
+		repositories {
+			maven {
+				url 'https://repo.gradle.org/gradle/libs-releases'
+				metadataSources {
+					mavenPom()
+					ignoreGradleMetadataRedirection()
+				}
+				content {
+					includeGroup('org.gradle.experimental')
+				}
+			}
+		}
 	}
 
 	configurations.configureEach {
